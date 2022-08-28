@@ -10,7 +10,7 @@ This repository uses a number of frameworks and libraries to work:
 
 * [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces
 * [Firebase/Storage](https://firebase.google.com/docs/storage) - Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale.
-* [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio) - Is an .NET Core API that supports login functionality. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
+* [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio) - Is an API that supports user login functionality.. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
 * [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - SQL Server 2019 Express is a free edition of SQL Server
 
 ## Installation and Run

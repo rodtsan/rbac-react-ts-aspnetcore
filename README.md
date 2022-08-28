@@ -15,7 +15,7 @@ This repository uses a number of frameworks and libraries to work:
 
 ## Installation and Run
 
-The database file (App_Data/AspNetIdentity-Localdb) is already in the project, so you do not have to worry about setup and running the web API application locally. You can simply run it in VSCode
+The database file (App_Data/AspNetIdentity-Localdb) is already in the project, so you do not have to worry about setting up the database and running the application locally. You simply can run the application through Visual Studio or VS Code IDE.
 
 To run server 
 

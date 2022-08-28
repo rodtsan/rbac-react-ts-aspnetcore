@@ -8,18 +8,62 @@ This implementation covers the scenario of a basic microservice based system whe
 
 This repository uses a number of frameworks and libraries to work:
 
-* [ReactJS] - A JavaScript library for building user interfaces
-* [ASP.NET Core Identity] - Is an API that supports login functionality. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
-* [SQL Server] - SQL Server 2019 Express is a free edition of SQL Server
+* [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [Firebase/Storage](https://firebase.google.com/docs/storage) - Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale.
+* [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio) - Is an .NET Core API that supports login functionality. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
+* [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - SQL Server 2019 Express is a free edition of SQL Server
 
 ## Installation and Run
 
-Install the dependencies and dev dependencies and start the server.
+The database file (App_Data/AspNetIdentity-Localdb) is already in the project, so you do not have to worry about setup and running the web API application locally. You can simply run it in VSCode
 
-You can manually install the database servers and configure the connections string by yourself. 
-Or you can simply go to API\src\RS_Services_API open in VS Code and execute the commands below. 
+To run server 
 
 ```sh
-dotnet build
-dotnet run
+    cd .\API\src\RS_Services_API
+    dotnet restore
+    dotnet run
 ``` 
+
+If you want to create your database by yourself, here is what need to do.
+
+- Open the file appSettings.json in RS_Services_API folder and change it.
+
+```sh
+    "DefaultConnection": "YOUR CONNECTION STRING"
+``` 
+
+- Then run the following command for migrations.
+
+```sh
+    dotnet ef migrations add InitialCreate --context ProfileDbContext
+    dotnet ef database update --context ProfileDbContext
+``` 
+
+- If dotnet-ef tool is not installed
+
+```sh
+    dotnet tool install --global dotnet-ef
+``` 
+
+Verify the deployment by navigating to your server address in your preferred browser.
+
+```sh
+    http://localhost:5000/swagger/index.html
+``` 
+
+To run client
+
+```sh
+    cd .\React_Client
+    npm install
+    npm start
+``` 
+
+Verify the deployment by navigating to your server address in your preferred browser.
+
+```sh
+    http://localhost:3002/
+``` 
+
+# Watch the video

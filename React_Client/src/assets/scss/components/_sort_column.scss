@@ -1,0 +1,26 @@
+.rs-table-column {
+    width: 100%;
+    display: flex;
+    grid-template-columns: auto 40px;
+    align-items: center;
+    .table-column-text {
+        font-weight: 500;
+        flex: 1;
+    }
+    .table-column-sort {
+        align-items: center;
+        .tsc-grid {
+            display: grid;
+            grid-template-rows: auto auto;
+            grid-row-gap: 0;
+            align-items: center;
+            position: relative;
+            height: 20px;
+            .tsc-arrow {
+                margin: -12px 0 0 0;
+                padding: 0;
+                height: 10px;
+            }
+        }
+    }
+}

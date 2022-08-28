@@ -1,0 +1,15 @@
+.box-outer {
+    position: relative;
+    min-height: 400px;
+    .box-inner {
+        position: absolute;
+        max-width: 500px;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        transform: translate(-50%, -50%);
+        p {
+            padding:10px;
+        }
+    }
+}

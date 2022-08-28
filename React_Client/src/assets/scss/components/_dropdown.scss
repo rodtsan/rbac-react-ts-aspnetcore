@@ -1,0 +1,22 @@
+.rs-dropdown {
+    .dropdown-menu-vscroll {
+        max-height: 280px;
+        overflow-y: auto;
+        min-width: 100% !important;
+        background-attachment: local, local, scroll, scroll;
+    }
+
+    .dropdown-toggle {
+        position: relative;
+        &::after {
+            top: 50%;
+            position: absolute;
+            transform: translateY(-50%);
+            right: 15px;
+        }
+    }
+
+    .dropdown-item {
+        white-space: normal;
+    }
+}

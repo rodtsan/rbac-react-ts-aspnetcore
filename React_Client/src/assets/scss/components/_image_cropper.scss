@@ -1,0 +1,7 @@
+/* Image cropper overrides class */
+
+.image-cropper-input-file {
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+}

@@ -1,0 +1,17 @@
+@import "./components/style.scss";
+
+.app-width {
+    max-width: 1920px;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.img-profile {
+    max-width: 200px;
+    min-width: 180px;
+    max-height: 200px;
+    min-height: 180px;
+}

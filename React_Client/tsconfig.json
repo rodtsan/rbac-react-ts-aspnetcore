@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "declaration": true,
+      "esModuleInterop": true,
+      "jsx": "react",
+      "lib": ["ES5", "ES2015", "ES2016", "DOM", "ESNext"],
+      "types": ["node"],
+      "module": "esnext",
+      "moduleResolution": "Node",
+      "noImplicitAny": true,
+      "noUnusedLocals": true,
+      "outDir": "dist/esm",
+      "sourceMap": true,
+      "strict": true,
+      "target": "ES6",
+      "experimentalDecorators": true,
+      "forceConsistentCasingInFileNames": true,
+    },
+    "include": [
+      "src",
+      "src/**/*.ts",
+      "src/**/**/*.ts"
+    ],
+    "extends": "./tsconfig.paths.json"
+  }
+  

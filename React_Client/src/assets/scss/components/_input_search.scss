@@ -1,0 +1,20 @@
+.input-group-search {
+    position: relative;
+    .form-control {
+        background-color: var(--bs-light);
+        &:focus,
+        &:active {
+            // outline: none;
+            // box-shadow: none;
+            border-color: var(--bs-blue);
+            background-color: var(--bs-white);
+        }
+    }
+    .search-icon {
+        position: absolute;
+        right: 8px;
+        top:50%;
+        transform: translateY(-50%);
+        opacity: .5;
+    }
+}

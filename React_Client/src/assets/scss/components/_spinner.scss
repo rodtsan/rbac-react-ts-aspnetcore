@@ -1,0 +1,27 @@
+
+
+.rs-spinner {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    transition: opacity .15s linear;
+    overflow: hidden;
+    min-height: 400px;
+    padding: 5px;
+    &.fade {
+       opacity: .5;
+       z-index: 9999999;
+    }
+    .spinner-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        
+    }
+    .table {
+        margin: 0;
+        padding: 0;
+    }
+}

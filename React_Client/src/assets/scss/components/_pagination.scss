@@ -1,0 +1,63 @@
+/* Bootstrap pagination overrides */
+.pagination {
+    align-items: center;
+}
+.page-link {
+    min-width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+    &:active,
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    &.dots {
+        border-top: 0;
+        border-bottom: 0;
+        border-right: 1px;
+        pointer-events: none;
+    }
+    &.pl-arrow {
+        padding-left: 0;
+        padding-right: 0;
+        font-size: x-large;
+    }
+    &.disabled {
+        pointer-events: none;
+
+        .arrow::before {
+            border-right: 0.12em solid rgba(0, 0, 0, 0.43);
+            border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+        }
+
+        &:hover {
+            background-color: transparent;
+            cursor: default;
+        }
+    }
+
+    .arrow {
+        vertical-align: middle;
+        &::before {
+            position: relative;
+            /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+            content: "";
+            /* By using an em scale, the arrows will size with the font */
+            display: inline-block;
+            width: 0.5em;
+            height: 0.5em;
+            border-right: 0.12em solid rgba(13, 110, 253, 0.87);
+            border-top: 0.12em solid rgba(13, 110, 253, 0.87);
+        }
+        margin: auto;
+        &.left {
+            transform: rotate(-135deg) translate(-50%);
+        }
+
+        &.right {
+            transform: rotate(45deg);
+        }
+    }
+}

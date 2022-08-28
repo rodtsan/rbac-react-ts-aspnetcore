@@ -12,6 +12,7 @@ This repository uses a number of frameworks and libraries to work:
 * [Firebase/Storage](https://firebase.google.com/docs/storage) - Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale.
 * [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio) - Is an API that supports user login functionality. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
 * [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - SQL Server Express is a free edition of SQL Server
+* [Swagger UI](https://swagger.io/swagger-ui/) - Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs. It allows both computers and humans to understand the capabilities of a REST API without direct access to the source code.
 
 ## Installation and Run
 
@@ -23,6 +24,11 @@ To run server
     cd API/src/RS_Services_API
     dotnet restore
     dotnet run
+``` 
+Verify the deployment by navigating to your server address in your preferred browser.
+
+```sh
+    http://localhost:5000/swagger/index.html
 ``` 
 
 If you want to create your database by yourself, here is what need to do.
@@ -44,12 +50,6 @@ If you want to create your database by yourself, here is what need to do.
 
 ```sh
     dotnet tool install --global dotnet-ef
-``` 
-
-Verify the deployment by navigating to your server address in your preferred browser.
-
-```sh
-    http://localhost:5000/swagger/index.html
 ``` 
 
 To run client

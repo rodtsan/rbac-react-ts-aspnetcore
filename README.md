@@ -27,7 +27,7 @@ To run server
 
 If you want to create your database by yourself, here is what need to do.
 
-- Open the file appSettings.json in RS_Services_API folder and change it.
+- Open the file appSettings.json inside the RS_Services_API folder and provide your connection string.
 
 ```sh
     "DefaultConnection": "YOUR CONNECTION STRING"

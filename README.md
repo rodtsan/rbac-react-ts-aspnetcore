@@ -20,7 +20,7 @@ The database file (App_Data/AspNetIdentity-Localdb) is already in the project, s
 To run server 
 
 ```sh
-    cd .\API\src\RS_Services_API
+    cd API/src/RS_Services_API
     dotnet restore
     dotnet run
 ``` 
@@ -55,7 +55,7 @@ Verify the deployment by navigating to your server address in your preferred bro
 To run client
 
 ```sh
-    cd .\React_Client
+    cd React_Client
     npm install
     npm start
 ``` 

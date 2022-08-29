@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import some from 'lodash/some';
 import { useNavigate } from 'react-router';
-import { setPageTitle } from '@common/appSettings';
 import { RegisterPageProps } from '.';
 /* Components */
 import Container from '@components/Container';
@@ -18,7 +17,6 @@ const View: React.FunctionComponent<RegisterPageProps> = ({
     const push = useNavigate();
 
     useEffect(() => {
-        setPageTitle('Register');
         return () => {
             setClear();
         };
@@ -35,7 +33,7 @@ const View: React.FunctionComponent<RegisterPageProps> = ({
     };
     const hasError = some(error);
     return (
-        <Container>
+        <Container title="Register">
             <div className="mx-auto" style={{ maxWidth: 500 }}>
                 <h1>Register</h1>
                 <div className="py-3" />

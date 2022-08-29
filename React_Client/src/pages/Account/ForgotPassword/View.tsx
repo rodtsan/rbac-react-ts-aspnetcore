@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { ForgotPasswordPageProps } from '.';
 import { ForgotPasswordValidationSchema } from '@src/common/models/ValidationShemas';
-/* Components */
+/** Components */
 import Container from '@components/Container';
 import Spinner from '@components/Spinner';
 
@@ -23,7 +23,7 @@ const View: React.FunctionComponent<ForgotPasswordPageProps> = ({
     });
 
     return (
-        <Container>
+        <Container title="Forgot Password">
             <div className="mx-auto" style={{ maxWidth: 420 }}>
                 <h1>Reset Password</h1>
                 <p>We will send you an email to reset your password.</p>

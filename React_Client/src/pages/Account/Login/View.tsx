@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import some from 'lodash/some';
-import { setPageTitle } from '@common/appSettings';
 import { LoginPageProps } from '.';
 /* Components */
 import Container from '@components/Container';
@@ -16,7 +15,6 @@ const View: React.FunctionComponent<LoginPageProps> = ({
     setClear
 }) => {
     useEffect(() => {
-        setPageTitle('Login');
         return () => {
             setClear();
         };
@@ -33,7 +31,7 @@ const View: React.FunctionComponent<LoginPageProps> = ({
     };
     const hasError = some(error);
     return (
-        <Container>
+        <Container title="Login">
             <div className="mx-auto" style={{ maxWidth: 420 }}>
                 <h1>Login</h1>
                 <div className="py-3" />

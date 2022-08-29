@@ -1,4 +1,5 @@
-import React, { ReactNode } from 'react';
+import { setPageTitle } from '@src/common/appSettings';
+import React, { ReactNode, useEffect } from 'react';
 
 interface ContainerProps {
     title?: string;
@@ -6,13 +7,18 @@ interface ContainerProps {
 }
 
 const Container: React.FunctionComponent<ContainerProps> = ({ title, children }) => {
+    useEffect(() => {
+        setPageTitle(title);
+    }, []);
     return (
         <div className="container-fluid py-5 mx-auto" style={{ maxWidth: 1920 }}>
-            <div className="row">
-                <div className="col-12 px-4">{children}</div>
-            </div>
+            {children}
         </div>
     );
+};
+
+Container.defaultProps = {
+    title: ''
 };
 
 export default Container;

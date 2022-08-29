@@ -1,10 +1,11 @@
 import React, { lazy } from 'react';
+import { RouteProps } from 'react-router-dom';
 import pick from 'lodash/pick';
+/** Pages */
 import Login from '@pages/Account/Login';
 import Register from '@pages/Account/Register';
 import Roles from '@pages/Manage/Roles';
 import Users from '@pages/Manage/Users';
-import { RouteProps } from 'react-router-dom';
 import ConfirmEmail from '@pages/Account/ConfirmEmail';
 import SessionExpired from '@pages/Shared/SessionExpired';
 import Profile from '@pages/Manage/Profile';

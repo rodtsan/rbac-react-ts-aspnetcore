@@ -8,8 +8,8 @@ import {
     updateUser,
     deleteUser,
     setClear
-} from '@redux/manage/users/actions';
-import { RootState, Paging, User, UserRole } from '@common/models';
+} from '@store/reducers/manage/users/actions';
+import { RootState, Paging, User, UserRole } from '@common/models/Interfaces';
 /* Components */
 import View from './View';
 

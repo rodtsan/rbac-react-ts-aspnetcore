@@ -1,28 +1,31 @@
+import Role from './Role';
+import User, { UserRole } from './User';
+
 /* Action/return payload */
 export interface Paging<T = {}> {
-    page: number;
-    pageSize: number;
-    recordCount: number;
+    page?: number;
+    pageSize?: number;
+    recordCount?: number;
     keywords?: string;
     orderBy?: string;
-    records?: T[] | never[];
+    records?: T[];
     deleted?: boolean;
 }
 
 /* Return payload */
 export interface UserLogin {
-    userId: string;
-    firstName: string;
-    lastName: string;
-    pictureUrl: string;
-    email: string;
+    userId?: string;
+    firstName?: string;
+    lastName?: string;
+    pictureUrl?: string;
+    email?: string;
     emailConfirmed?: boolean;
     lockoutEnabled?: boolean;
     lockoutEnd?: string;
     accessFailedCount?: number;
     createdWhen?: string;
     lastEditedWhen?: string;
-    roles: string[]; 
+    roles?: string[];
 }
 
 export interface TokenResponse {
@@ -34,32 +37,31 @@ export interface TokenResponse {
 export default interface RootState {
     users: {
         loading: boolean;
-        paging: Paging | {};
-        userRoles: [],
-        error: Error;
+        paging: Paging<User>;
+        userRoles: UserRole[];
+        error: Error | { message?: string };
     };
     roles: {
         loading: boolean;
-        paging: Paging | {};
-        error: Error;
+        paging: Paging<Role>;
+        error: Error | { message?: string };
     };
     account: {
         loading: boolean;
-        error: Error;
         isLoggedIn: boolean;
-        userLogin: UserLogin | {};
         isRegistered: boolean;
         isPasswordReset: boolean;
+        error: Error | { message?: string };
+        userLogin: UserLogin | {};
     };
     profiles: {
         loading: boolean;
-        error: Error;
+        error: Error | { message?: string };
         profile: {};
     };
     weatherForcast: {
         loading: boolean;
-        records: never[];
-        error: Error;
+        records: never[] | [];
+        error: Error | { message?: string };
     };
 }
-

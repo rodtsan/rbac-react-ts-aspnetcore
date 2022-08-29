@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import classNames from 'classnames';
 import { yesOrNo } from '@common/utils/methods';
-import { User } from '@common/models';
+import { User } from '@common/models/Interfaces';
 /* Components */
 import Spinner from '@components/Spinner';
 import SortColumn from '@components/SortColumn';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { LoginProps } from '@common/models';
+import { LoginProps } from '@common/models/Interfaces';
 import { LoginValidationSchema } from '@src/common/models/ValidationShemas';
 /* Components */
 import Spinner from '@components/Spinner';

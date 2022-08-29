@@ -2,7 +2,7 @@
 /* Return payloads */
 export interface UserRole {
     userId?: string;
-    roleId: string;
+    roleId?: string;
     name?: string;
     description?: string;
     selected?: boolean;
@@ -23,4 +23,9 @@ export default interface User {
     lastEditedWhen?: string;
     roles?: string[];
     deleted?: boolean;
+}
+
+export interface UserRoles {
+    userId: string;
+    roles: string[];
 }

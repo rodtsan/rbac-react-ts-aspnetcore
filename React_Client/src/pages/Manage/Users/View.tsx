@@ -1,16 +1,14 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { debounce, isEmpty, some } from 'lodash';
-import { setPageTitle } from '@common/appSettings';
-/* Props & models*/
-import { Paging, User } from '@common/models';
+import { Paging, User } from '@common/models/Interfaces';
 import { UsersPageProps } from '.';
-/* Components */
+/**  Components */
 import Container from '@components/Container';
 import Pagination from '@components/Pagination';
 import SearchInput from '@components/SearchInput';
 import Table from './components/Table';
 import Modal from '@src/components/Modal';
-import EditUser, { OtherProps } from './components/Edit';
+import EditUser, { UserFormProps } from './components/Edit';
 
 const View: React.FunctionComponent<UsersPageProps> = ({
     loading,
@@ -43,7 +41,6 @@ const View: React.FunctionComponent<UsersPageProps> = ({
     }, [params]);
 
     useEffect(() => {
-        setPageTitle('Manage Users');
         return () => {
             setClear();
         };
@@ -76,7 +73,7 @@ const View: React.FunctionComponent<UsersPageProps> = ({
         event.preventDefault();
     };
 
-    const handleUpdate = (otherProps: OtherProps) => {
+    const handleUpdate = (otherProps: UserFormProps) => {
         updateUser({
             userId: selectedUser?.userId as string,
             ...otherProps
@@ -152,7 +149,7 @@ const View: React.FunctionComponent<UsersPageProps> = ({
     };
 
     return (
-        <Container>
+        <Container title="Manage Users">
             {isDeleteUserVisible && (
                 <Modal
                     visible={isDeleteUserVisible}
@@ -162,8 +159,8 @@ const View: React.FunctionComponent<UsersPageProps> = ({
                     onOk={handleDeleteClick}
                 >
                     <p>
-                        Are you sure you want to delete {deleteUser?.firstName}{' '}
-                        {deleteUser?.lastName}?
+                        Are you sure you want to {deleteUser.deleted ? 'permanently' : ''}
+                        delete {deleteUser?.firstName} {deleteUser?.lastName}?
                     </p>
                 </Modal>
             )}

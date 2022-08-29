@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { getRolesPerPage, setClear } from '@redux/manage/roles/actions';
-import { RootState, Paging, Role } from '@common/models';
+import { getRolesPerPage, setClear } from '@store/reducers/manage/roles/actions';
+import { RootState, Paging, Role } from '@common/models/Interfaces';
 /* Components */
 import View from './View';
 

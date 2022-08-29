@@ -1,13 +1,13 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { isAuthenticated } from '@store/localStorage';
+/** Components*/
 import routes, { ExtendedRouteProps } from './routes';
 import Layout from '@pages/Shared/Layout';
-import { isAuthenticated } from '@src/store/localStorage';
 import Spinner from '@components/Spinner'
 
-interface AppRootProps {}
 
-const AppRoot: React.FunctionComponent<AppRootProps> = () => {
+const AppRoot: React.FunctionComponent<{}> = () => {
     const privateRoutes = routes.filter(
         ({ isPublic, isAuthorize }) =>
             isPublic === true || isAuthorize === isAuthenticated()

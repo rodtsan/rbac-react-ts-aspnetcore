@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import '@common/utils/extensions';
+import some from 'lodash/some';
 import { isAuthenticated } from '@store/localStorage';
-import { UserLogin } from '@common/models';
-import { some } from 'lodash';
+import { UserLogin } from '@common/models/Interfaces';
+import '@common/utils/extensions';
 
 export interface HeaderProps {
     onLogout: () => void;

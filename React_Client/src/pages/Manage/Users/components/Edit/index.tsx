@@ -1,26 +1,26 @@
 import React, { useEffect } from 'react';
-import { isEqual, some } from 'lodash';
-import { UserRole, User } from '@common/models';
+import { isEqual } from 'lodash';
+import { UserRole, User } from '@common/models/Interfaces';
 /* Components */
 import Modal from '@components/Modal';
 import Tabs from '@src/components/Tabs';
-import { FormikProps, useFormik } from 'formik';
+import { FormikProps } from 'formik';
 import AssignRoles from './AssignRoles';
 import UserSettings from './UserSettings';
 
-export interface EditUserProps {
-    user: User;
-    userRoles?: UserRole[];
-    onUpdate: (props: OtherProps) => void;
-    onCancel: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-export interface OtherProps {
+export interface UserFormProps {
     lockoutEnabled?: boolean;
     emailConfirmed?: boolean;
     phoneNumberConfirmed?: boolean;
     twoFactorEnabled?: boolean;
     roles?: string[];
+}
+
+export interface EditUserProps {
+    user: User;
+    userRoles?: UserRole[];
+    onUpdate: (props: UserFormProps) => void;
+    onCancel: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const EditUser: React.FunctionComponent<EditUserProps> = ({
@@ -29,7 +29,7 @@ const EditUser: React.FunctionComponent<EditUserProps> = ({
     onUpdate,
     onCancel
 }) => {
-    const formikRef = React.useRef<FormikProps<OtherProps>>(null);
+    const formikRef = React.useRef<FormikProps<UserFormProps>>(null);
     const [selectedRoles, setSelectedRoles] = React.useState<UserRole[] | undefined>(
         userRoles
     );
@@ -47,14 +47,14 @@ const EditUser: React.FunctionComponent<EditUserProps> = ({
         return isEqual(userRoles, other);
     };
 
-    const isOtherEqual = (other?: OtherProps): boolean => {
-        const userProps = {
+    const isOtherEqual = (other?: UserFormProps): boolean => {
+        const userSettingsProps = {
             lockoutEnabled: user.lockoutEnabled,
             emailConfirmed: user.emailConfirmed,
             phoneNumberConfirmed: user.phoneNumberConfirmed,
             twoFactorEnabled: user.twoFactorEnabled
         };
-        return isEqual(userProps, other);
+        return isEqual(userSettingsProps, other);
     };
 
     const handleChange = (roleId: string, checked: boolean) => {

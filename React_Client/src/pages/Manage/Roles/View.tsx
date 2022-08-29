@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { debounce } from 'lodash';
-import { setPageTitle } from '@common/appSettings';
-/* Props & models */
-import { Paging, Role } from '@common/models';
+import { Paging, Role } from '@common/models/Interfaces';
 import { RolesPageProps } from './';
 /* Components*/
 import Container from '@components/Container';
@@ -26,7 +24,6 @@ const View: React.FunctionComponent<RolesPageProps> = ({
     });
 
     useEffect(() => {
-        setPageTitle("Manage Roles");
         return () => {
           setClear();
         }
@@ -78,7 +75,7 @@ const View: React.FunctionComponent<RolesPageProps> = ({
     };
 
     return (
-        <Container>
+        <Container title="Manage Roles">
             <div className="mx-auto">
                 <div className="row">
                     <div className="col-md-8">

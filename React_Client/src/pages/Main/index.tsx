@@ -5,7 +5,7 @@ interface MainProps {}
 
 const Main: React.FunctionComponent<MainProps> = () => {
     return (
-        <Container>
+        <Container title="Home">
             <div className="container">
                 <article>
                     <div className="text-center">

@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Role } from '@common/models';
+import { Role } from '@common/models/Interfaces';
 /* Components */
 import Spinner from '@components/Spinner';
 import SortColumn from '@components/SortColumn';

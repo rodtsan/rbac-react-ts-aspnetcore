@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { register, setClear } from '@src/redux/account/actions';
-import { RootState } from '@common/models';
+import { register, setClear } from '@store/reducers/account/actions';
+import { RootState } from '@common/models/Interfaces';
 import View from './View';
 
 const mapStateToProps = (state: RootState) => ({

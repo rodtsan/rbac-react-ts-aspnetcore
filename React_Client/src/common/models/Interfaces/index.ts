@@ -1,9 +1,10 @@
+import { AnyAction } from 'redux';
 import RootState, { Paging, UserLogin, TokenResponse } from './RootState';
 import Profile, { ProfileProps } from './Profile';
-import Role, { RolePayload } from './Role';
-import User, { UserRole } from './User';
+import Role from './Role';
+import User, { UserRole, UserRoles } from './User';
 import RegisterProps, { LoginProps } from './Register';
-
+export interface RootAction extends AnyAction {}
 export {
     RootState,
     Paging,
@@ -12,9 +13,9 @@ export {
     Profile,
     ProfileProps,
     Role,
-    RolePayload,
     User,
     UserRole,
+    UserRoles,
     RegisterProps,
     LoginProps
 };

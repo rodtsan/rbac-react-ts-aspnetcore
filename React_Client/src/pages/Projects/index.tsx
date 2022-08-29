@@ -5,7 +5,7 @@ interface ProjectsProps {}
 
 const Projects: React.FunctionComponent<ProjectsProps> = () => {
     return (
-        <Container>
+        <Container title="Projects">
             <div className="container">
                 <article>
                     <div className="text-center">

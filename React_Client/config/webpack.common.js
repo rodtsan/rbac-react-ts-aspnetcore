@@ -59,7 +59,6 @@ module.exports = {
             '@assets': path.join(paths.appSrc, './assets/'),
             '@settings': path.join(paths.appSrc, './settings/'),
             '@store': path.join(paths.appSrc, './store/'),
-            '@redux': path.join(paths.appSrc, './redux/')
         },
         extensions: ['', '.js', '.ts', '.tsx']
     }

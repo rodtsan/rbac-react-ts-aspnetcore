@@ -1,41 +1,41 @@
 /**
  * Get the global state from session storage
  */
-import { RootState, TokenResponse } from '@common/models';
+import { RootState, TokenResponse } from '@common/models/Interfaces';
 import jwtDecode, { JwtPayload } from 'jwt-decode';
 import CryptoJS from 'crypto-js';
 import { isEmpty } from 'lodash';
 
 /* Initial state */
 export const initialRootState: RootState = {
-    roles: {
-        paging: {},
-        error: {} as Error,
-        loading: false
-    },
     users: {
+        loading: false,
         paging: {},
         userRoles: [],
-        error: {} as Error,
-        loading: false
+        error: {}
+    },
+    roles: {
+        loading: false,
+        paging: {},
+        error: {} as Error
     },
     account: {
-        error: {} as Error,
         loading: false,
         isLoggedIn: false,
         isRegistered: false,
         isPasswordReset: false,
+        error: {},
         userLogin: {}
     },
     profiles: {
         loading: false,
-        profile: {},
-        error: {} as Error
+        error: {},
+        profile: {}
     },
     weatherForcast: {
+        loading: false,
         records: [],
-        error: {} as Error,
-        loading: false
+        error: {}
     }
 };
 

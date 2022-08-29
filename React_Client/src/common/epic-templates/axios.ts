@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { getBaseUrl, getPath, headerJson } from '@common/api';
 import { clearState, getTokens, saveTokens } from '@store/localStorage';
 
-/* Set default config for axios instance */
+/** Set default config for axios instance */
 const axiosConfig: AxiosRequestConfig = {
     baseURL: getBaseUrl('profileBaseUrl'),
     headers: headerJson(),
@@ -33,10 +33,10 @@ axiosInstance.interceptors.response.use(
                 })
                 .finally(() => {
                     if (newTokenServed) {
-                        /* New token has been stored in cookie storage however, the page need to be reloaded */
+                        /**  A new token is now been saved in the cookie storage. Here the page needs to be refreshed. */
                         window.location.reload();
                     } else {
-                        /* The refresh token maybe expired or does not match */
+                        /** An error occurs if the refresh token has expired or does not match. */
                         clearState();
                         window.location.href = '/session-expired';
                     }

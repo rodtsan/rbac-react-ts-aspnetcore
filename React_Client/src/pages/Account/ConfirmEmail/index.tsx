@@ -3,6 +3,7 @@ import { useRequest } from '@common/hooks/useRequest';
 import { getUrl } from '@common/api';
 import { useLocation } from 'react-router-dom';
 import { setPageTitle } from '@common/appSettings';
+import Container from '@src/components/Container';
 
 interface ConfirmEmailProps {}
 
@@ -43,7 +44,7 @@ const ConfirmEmail: React.FunctionComponent<ConfirmEmailProps> = () => {
     const handleClick = () => onSubmit({});
 
     return (
-        <div className="container-fluid">
+        <Container title="Confirm Email">
             <div className="mx-auto" style={{ maxWidth: 400, height: 400 }}>
                 {loading ? (
                     <div>Loading...</div>
@@ -72,7 +73,7 @@ const ConfirmEmail: React.FunctionComponent<ConfirmEmailProps> = () => {
 
                 <button onClick={handleClick}>Click Me</button>
             </div>
-        </div>
+        </Container>
     );
 };
 

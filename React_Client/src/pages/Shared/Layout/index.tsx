@@ -1,11 +1,11 @@
 import React, { ReactNode, useLayoutEffect } from 'react';
-import { refreshToken, revoke, getUserInfo } from '@src/redux/account/actions';
+import { refreshToken, revoke, getUserInfo } from '@store/reducers/account/actions';
 import { connect, ConnectedProps } from 'react-redux';
 import Content from './Content';
 import Header from './Header';
 import Footer from './Footer';
-import { getUserId } from '@src/store/localStorage';
-import { clearState } from '@src/store/localStorage';
+import { getUserId } from '@store/localStorage';
+import { clearState } from '@store/localStorage';
 import { isEmpty } from 'lodash';
 
 function mapStateToProps(state: any) {

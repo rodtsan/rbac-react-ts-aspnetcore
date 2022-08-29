@@ -1,17 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import some from 'lodash/some';
-import { fbsImageBaseUrl, setPageTitle } from '@common/appSettings';
 /* From state */
 import { getUserId } from '@store/localStorage';
 /* Props */
 import { ProfilePageProps } from '.';
 /* Components */
 import Container from '@components/Container';
-
-import ProfileForm, { ProfileProps } from './components/ProfileForm';
-import Alert from '@src/components/Alert';
-
-
+import Alert from '@components/Alert';
+import ProfileForm, { ProfileProps } from './components/Form';
 
 const View: React.FunctionComponent<ProfilePageProps> = ({
     error,
@@ -25,13 +21,11 @@ const View: React.FunctionComponent<ProfilePageProps> = ({
     const [profileProps, setProfileProps] = useState<ProfileProps>({});
 
     useEffect(() => {
-        setPageTitle("My Profile");
         getProfile(getUserId());
         return () => {
             setClear();
         };
     }, []);
-
 
     useEffect(() => {
         setProfileProps({
@@ -51,7 +45,6 @@ const View: React.FunctionComponent<ProfilePageProps> = ({
         });
     }, [profile]);
 
-    
     const handleSubmit = (values: ProfileProps) => {
         updateProfile({
             ...values,
@@ -60,7 +53,7 @@ const View: React.FunctionComponent<ProfilePageProps> = ({
     };
     const hasError = some(error);
     return (
-        <Container>
+        <Container title="My Profile">
             <div className="mx-auto" style={{ maxWidth: 500 }}>
                 <h1>My Profile</h1>
                 <div className="py-3" />
@@ -71,7 +64,6 @@ const View: React.FunctionComponent<ProfilePageProps> = ({
                     onSubmit={handleSubmit}
                     onError={setError}
                 />
-                <div>{JSON.stringify(error, null, 2)}</div>
             </div>
         </Container>
     );

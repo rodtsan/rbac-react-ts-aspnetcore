@@ -1,7 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux';
-import { getProfile, updateProfile, setClear, setError} from '@src/redux/manage/profile/actions';
+import { getProfile, updateProfile, setClear, setError} from '@store/reducers/manage/profile/actions';
 /* Models */
-import { RootState, Profile } from '@common/models';
+import { RootState, Profile } from '@common/models/Interfaces';
 /* Components */
 import View from './View';
 

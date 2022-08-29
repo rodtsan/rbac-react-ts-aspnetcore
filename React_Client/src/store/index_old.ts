@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
-import reducers from '../redux/reducers';
-import combinedEpics from '../redux/index';
+import reducers from './reducers';
+import combinedEpics from './reducers/epics';
 import dependencies from '@common/epic-templates';
-import { Action, RootState } from '@common/models';
+import { RootAction, RootState } from '@common/models/Interfaces';
 import { initialRootState } from './localStorage'
 
 declare global {
@@ -14,7 +14,7 @@ declare global {
 const composeEnhancers =
     (window && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-const epicMiddleware = createEpicMiddleware<Action<any>, Action<any>, RootState>({
+const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState>({
     dependencies
 });
 

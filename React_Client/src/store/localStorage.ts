@@ -23,7 +23,8 @@ export const initialRootState: RootState = {
         loading: false,
         isLoggedIn: false,
         isRegistered: false,
-        isPasswordReset: false,
+        isEmailConfirmed: false,
+        isPasswordChanged: false,
         error: {},
         userLogin: {}
     },

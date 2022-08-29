@@ -3,18 +3,19 @@ import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { ResetPasswordPageProps } from '.';
 import { ResetPasswordValidationSchema } from '@common/models/ValidationShemas';
-import { setPageTitle } from '@common/appSettings';
+import { ResetPassword } from '@common/models/Interfaces';
 /* Components */
 import Container from '@components/Container';
 import Spinner from '@components/Spinner';
 
-interface ResetPasswordProps {
-    password: string;
+
+export interface ResetPasswordProps extends ResetPassword {
     confirmPassword: string;
 }
+
 const View: React.FunctionComponent<ResetPasswordPageProps> = ({
     loading,
-    isPasswordReset,
+    isPasswordChanged,
 }) => {
     const push = useNavigate()
     const params = new URLSearchParams(location.search);
@@ -22,18 +23,15 @@ const View: React.FunctionComponent<ResetPasswordPageProps> = ({
     const userId = params.get('userId'),
         token = params.get('token');
 
-    useEffect(() => {
-        setPageTitle('Reset Password');
-    }, []);
 
     useEffect(() => {
-        if (isPasswordReset) {
+        if (isPasswordChanged) {
             push('/login')
         }
         if (!hasParams) {
             push('/')
         }
-    }, [isPasswordReset]);
+    }, [isPasswordChanged]);
 
     const formik = useFormik<ResetPasswordProps>({
         initialValues: {
@@ -52,9 +50,9 @@ const View: React.FunctionComponent<ResetPasswordPageProps> = ({
     });
 
     return (
-        <Container>
+        <Container title="Reset Password">
             <div className="mx-auto" style={{ maxWidth: 420 }}>
-                <h1>Change your Password</h1>
+                <h2 className="d-block text-center">Change your Password</h2>
                 <p></p>
                 <div className="py-2" />
                 <Spinner loading={loading}>

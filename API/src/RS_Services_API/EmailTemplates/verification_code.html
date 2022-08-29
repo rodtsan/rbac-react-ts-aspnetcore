@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Verfication Code</title>
+    <style>
+      html,
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .container {
+        max-width: 500px;
+        margin: 10px auto;
+        padding: 10px;
+      }
+      .link {
+        font-weight: bold;
+        background-color: #ccc;
+        text-align: center;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 2px;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <strong>Hi {{FirstName}},</strong>
+      <br />
+      <p>
+        Our system received a request to reset your password for [Example] account.
+      </p>
+      <br />
+      <div>
+        <span>Verification code: <strong>{{Code}}</strong></span>
+      </div>
+      <br />
+      <p>For security reasons, this code will expire in 5 minutes. Please do not disclose this code to others.</p>
+      <p>If you did not make this request, please contact us：{{Link}}</p>
+      <br />
+      <p>
+        Cheers,
+        <br />
+        <strong>Web Team</strong>
+      </p>
+    </div>
+  </body>
+</html>

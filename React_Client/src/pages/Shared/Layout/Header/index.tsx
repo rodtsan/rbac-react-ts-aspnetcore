@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import some from 'lodash/some';
 import { isAuthenticated } from '@store/localStorage';
-import { UserLogin } from '@common/models/Interfaces';
+import {  IUserLogin } from '@common/models/Interfaces';
 import '@common/utils/extensions';
 
 export interface HeaderProps {
     onLogout: () => void;
-    userLogin: UserLogin;
+    userLogin: IUserLogin;
 }
 
 const Header: React.FunctionComponent<HeaderProps> = ({ onLogout, userLogin }) => {
-    const userProfile = isAuthenticated() ? userLogin : ({} as UserLogin);
+    const userProfile = isAuthenticated() ? userLogin : ({} as IUserLogin);
     const hasProfile = some(userProfile);
     const userRoles = userProfile?.roles as string[];
     return (

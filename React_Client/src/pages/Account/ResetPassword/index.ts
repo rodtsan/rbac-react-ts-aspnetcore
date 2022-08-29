@@ -6,7 +6,7 @@ import View from './View';
 const mapStateToProps = (state: RootState) => ({
     loading: state.account.loading,
     error: state.account.error,
-    isPasswordReset: state.account.isPasswordReset
+    isPasswordChanged: state.account.isPasswordChanged
 });
 
 const mapDispatchToProps = {

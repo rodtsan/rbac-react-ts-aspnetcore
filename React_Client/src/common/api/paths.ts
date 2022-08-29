@@ -4,6 +4,8 @@ export interface ApiPaths {
     refresh?: string;
     revoke?: string;
     confirmEmail?: string;
+    forgotPassword?: string;
+    resetPassword?: string;
     getRolesPerPage?: string;
     getUsersPerPage?: string;
     getUserRoles?: string;
@@ -22,6 +24,8 @@ export const apiPaths: ApiPaths = {
     refresh: '/Account/Refresh',
     revoke: '/Account/Revoke',
     confirmEmail: '/Account/ConfirmEmail',
+    forgotPassword: '/Account/forgotPassword',
+    resetPassword: '/Account/resetPassword',
     getRolesPerPage: '/Roles/GetRolesPerPage',
     getUserRoles: '/Users/GetUserRoles/',
     addUserRoles: '/Users/AddUserRoles/',

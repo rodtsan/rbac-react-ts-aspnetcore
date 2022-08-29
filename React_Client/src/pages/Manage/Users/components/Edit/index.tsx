@@ -8,7 +8,7 @@ import { FormikProps } from 'formik';
 import AssignRoles from './AssignRoles';
 import UserSettings from './UserSettings';
 
-export interface UserFormProps {
+export interface UserProps {
     lockoutEnabled?: boolean;
     emailConfirmed?: boolean;
     phoneNumberConfirmed?: boolean;
@@ -19,7 +19,7 @@ export interface UserFormProps {
 export interface EditUserProps {
     user: User;
     userRoles?: UserRole[];
-    onUpdate: (props: UserFormProps) => void;
+    onUpdate: (props: UserProps) => void;
     onCancel: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -29,7 +29,7 @@ const EditUser: React.FunctionComponent<EditUserProps> = ({
     onUpdate,
     onCancel
 }) => {
-    const formikRef = React.useRef<FormikProps<UserFormProps>>(null);
+    const formikRef = React.useRef<FormikProps<UserProps>>(null);
     const [selectedRoles, setSelectedRoles] = React.useState<UserRole[] | undefined>(
         userRoles
     );
@@ -47,7 +47,7 @@ const EditUser: React.FunctionComponent<EditUserProps> = ({
         return isEqual(userRoles, other);
     };
 
-    const isOtherEqual = (other?: UserFormProps): boolean => {
+    const isOtherEqual = (other?: UserProps): boolean => {
         const userSettingsProps = {
             lockoutEnabled: user.lockoutEnabled,
             emailConfirmed: user.emailConfirmed,

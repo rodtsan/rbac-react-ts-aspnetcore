@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const LoginValidationSchema = Yup.object().shape({
-    email: Yup.string().email('Email is invalid').required('Email is required'),
+    email: Yup.string().email('Invalid email address').required('User Name is required'),
     password: Yup.string()
         .min(2, 'Password is too short')
         .required('Password is required')
@@ -16,5 +16,7 @@ export const ResetPasswordValidationSchema = Yup.object().shape({
 });
 
 export const ForgotPasswordValidationSchema = Yup.object().shape({
-    email: Yup.string().email('Email is invalid').required('Email is required')
+    email: Yup.string()
+        .email('Invalid email address')
+        .required('Email address is required')
 });

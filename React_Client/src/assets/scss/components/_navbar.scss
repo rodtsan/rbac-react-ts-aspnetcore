@@ -1,35 +1,36 @@
 /* Bootstrap navbar overrides */
-
-.navbar-brand {
-    min-width: 200px;
-    .logo {
-       max-height: 50px;
+.navbar {
+    .navbar-brand {
+        min-width: 200px;
+        .logo {
+            max-height: 50px;
+        }
     }
-  }
-  
-  .nav-item,
-  .nav-link,
-  .nav-link:hover,
-  .nav-link.active {
-      --bs-nav-link-color: white;
-      --bs-navbar-active-color: white;
-      cursor: pointer;
-  }
-  
-  .dropdown-menu {
-      padding: 5px 0;
-      box-shadow: var(--rs-default-box-shadow);
-      .nav-link {
-          padding: 5px 5px;
-          &:not(.active) {
-              &:hover {
-                  background-color: antiquewhite;
-                  color: black;
-              }
-          }
-          &.active {
-              background-color: darkgoldenrod;
-              color: white;
-          }
-      }
-  }
+
+    .nav-item,
+    .nav-link,
+    .nav-link:hover,
+    .nav-link.active {
+        --bs-nav-link-color: white;
+        --bs-navbar-active-color: white;
+        cursor: pointer;
+    }
+
+    .dropdown-menu {
+        padding: 5px 0;
+        box-shadow: var(--bs-dropdown-box-shadow);
+        .nav-link {
+            padding: 5px 5px;
+            &:not(.active) {
+                &:hover {
+                    background-color: antiquewhite;
+                    color: black;
+                }
+            }
+            &.active {
+                background-color: darkgoldenrod;
+                color: white;
+            }
+        }
+    }
+}

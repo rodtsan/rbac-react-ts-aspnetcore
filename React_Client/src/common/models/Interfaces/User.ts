@@ -1,4 +1,3 @@
-
 /* Return payloads */
 export interface UserRole {
     userId?: string;
@@ -8,7 +7,7 @@ export interface UserRole {
     selected?: boolean;
 }
 
-export default interface User {
+export interface User {
     userId?: string;
     firstName?: string;
     lastName?: string;

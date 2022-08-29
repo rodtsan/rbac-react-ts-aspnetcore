@@ -17,9 +17,8 @@ export interface ProfileProps {
     postalCode?: string;
 }
 
-
 /* Return payload */
-export default interface Profile {
+export interface Profile {
     userId?: string;
     profileId?: string;
     firstName?: string;

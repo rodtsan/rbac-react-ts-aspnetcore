@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { ForgotPasswordPageProps } from '.';
-import { ForgotPasswordValidationSchema } from '@src/common/models/ValidationShemas';
+import { ForgotPasswordValidationSchema } from '@common/models/ValidationShemas';
 /** Components */
 import Container from '@components/Container';
 import Spinner from '@components/Spinner';

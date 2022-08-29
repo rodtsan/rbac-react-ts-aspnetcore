@@ -1,9 +1,15 @@
 import { Observable } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
-import { Epic, ofType, StateObservable } from 'redux-observable';
+import { Epic, StateObservable } from 'redux-observable';
 import { getUrl } from '@common/api';
 import { RootAction, RootState } from '@common/models/Interfaces';
-import { fetchWeatherForcast, setError, setLoading, setData, types } from './actions';
+import {
+    fetchWeatherForcast,
+    setError,
+    setLoading,
+    setData,
+    cancelAction
+} from './actions';
 
 export const getWeatherForcastEpic: Epic = (
     action$: Observable<RootAction>,
@@ -12,9 +18,8 @@ export const getWeatherForcastEpic: Epic = (
 ) =>
     action$.pipe(
         filter(fetchWeatherForcast.match),
-        switchMap((action) => {
+        switchMap(() => {
             const url = getUrl('profileBaseUrl', 'weatherForcast');
-            console.log(action.payload);
             return get(
                 url,
                 {},
@@ -24,7 +29,7 @@ export const getWeatherForcastEpic: Epic = (
                     succeeded: setData,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.SET_WEATHER_FORCAST_CANCEL))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })

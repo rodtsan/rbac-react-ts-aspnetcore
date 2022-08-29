@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { FormikProps, useFormik } from 'formik';
-import { UserFormProps } from '.';
-import { User } from '@src/common/models';
+import { User } from '@common/models/Interfaces';
+import { UserProps } from '.';
 
 interface UserSettingsProps {
     user: User;
 }
 
 const UserSettings = React.forwardRef(
-    ({ user }: UserSettingsProps, ref: React.Ref<FormikProps<UserFormProps>>) => {
-        const formik = useFormik<UserFormProps>({
+    ({ user }: UserSettingsProps, ref: React.Ref<FormikProps<UserProps>>) => {
+        const formik = useFormik<UserProps>({
             initialValues: {},
             innerRef: ref,
             onSubmit: console.log

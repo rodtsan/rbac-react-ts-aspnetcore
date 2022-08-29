@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
-import { Epic, ofType, StateObservable } from 'redux-observable';
+import { Epic, StateObservable } from 'redux-observable';
 import { getUrl } from '@common/api';
 import { RootAction, RootState } from '@common/models/Interfaces';
 import {
@@ -9,9 +9,8 @@ import {
     setError,
     setLoading,
     setData,
-    types
+    cancelAction
 } from './actions';
-
 
 export const getProfileEpic: Epic = (
     action$: Observable<RootAction>,
@@ -20,17 +19,17 @@ export const getProfileEpic: Epic = (
 ) =>
     action$.pipe(
         filter(getProfile.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = getUrl('profileBaseUrl', 'getProfile');
             return get(
-                String(url).concat(action.payload),
+                String(url).concat(payload),
                 {},
                 {
                     startWith: setLoading,
                     succeeded: setData,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.SET_PROFILE_CANCEL))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
@@ -43,17 +42,22 @@ export const updateProfileEpic: Epic = (
 ) =>
     action$.pipe(
         filter(updateProfile.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = String(getUrl('profileBaseUrl', 'updateProfile')).concat(
-                action.payload.profileId
+                payload.profileId
             );
-            return patch(url, action.payload, {}, {
-                delay: 1000,
-                startWith: setLoading,
-                succeeded: setData,
-                failed: setError,
-                endWith: setLoading,
-                cancel: action$.pipe(ofType(types.SET_PROFILE_CANCEL))
-            });
-        }),
+            return patch(
+                url,
+                payload,
+                {},
+                {
+                    delay: 1000,
+                    startWith: setLoading,
+                    succeeded: setData,
+                    failed: setError,
+                    endWith: setLoading,
+                    cancel: action$.pipe(filter(cancelAction.match))
+                }
+            );
+        })
     );

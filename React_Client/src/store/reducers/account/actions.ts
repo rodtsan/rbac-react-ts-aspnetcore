@@ -1,19 +1,23 @@
 import { createAction } from '@reduxjs/toolkit';
-import { RefreshToken, Register, Login } from '@store/reducers/payloads';
+import {
+    Login,
+    IRefreshToken,
+    Register,
+    ConfirmEmail,
+    ForgotPassword,
+    ResetPassword
+} from '@common/models/Interfaces';
 export * from './reducer';
 
-export const types = {
-    USER_LOGIN: 'account/user_login',
-    CANCEL_OPERATION: 'account/cancel_operation',
-    GET_USER_INFO: 'account/get_user_info',
-    REGISTER: 'account/register',
-    REVOKE: 'account/revoke',
-    REFRESH_TOKEN: 'account/refresh_token'
-};
+/** type: {reducer:account}/{name: user_login) */
 
-export const userLogin = createAction<Login>(types.USER_LOGIN);
-export const refreshToken = createAction<RefreshToken>(types.REFRESH_TOKEN);
-export const register = createAction<Register>(types.REGISTER);
-export const getUserInfo = createAction<string>(types.GET_USER_INFO);
-export const revoke = createAction<string>(types.REVOKE);
-export const setCancel = createAction<string>(types.CANCEL_OPERATION);
+export const userLogin = createAction<Login>('account/userLogin');
+export const refreshToken = createAction<IRefreshToken>('account/refreshToken');
+export const register = createAction<Register>('account/register');
+export const confirmEmail = createAction<ConfirmEmail>('account/confirmEmail');
+export const forgotPassword = createAction<ForgotPassword>('account/forgotPassword');
+export const resetPassword = createAction<ResetPassword>('account/resetPassword');
+
+export const getUserInfo = createAction<string>('account/getUserInfo');
+export const revoke = createAction<string>('account/revoke');
+export const cancelAction = createAction<string>('account/cancelAction');

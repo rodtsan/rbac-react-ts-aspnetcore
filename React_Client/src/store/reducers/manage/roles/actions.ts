@@ -1,12 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Paging, Role } from '@store/reducers/payloads';
+import { Role, Paging } from '@common/models/Interfaces';
 export * from './reducer';
 
-export const types = {
-    GET_ROLES_PER_PAGE: 'roles/get_roles_per_page',
-    UPDATE_ROLE_INFO: 'roles/update_role_info',
-    SET_ROLES_CANCEL: 'roles/set_roles_cancel'
-};
-
-export const getRolesPerPage = createAction<Paging>(types.GET_ROLES_PER_PAGE);
-export const updateRole = createAction<Role>(types.UPDATE_ROLE_INFO);
+export const getRolesPerPage = createAction<Paging>('roles/getRolesPerPage');
+export const updateRole = createAction<Role>('roles/updateRole');
+export const cancelAction = createAction<string>('roles/cancelAction');

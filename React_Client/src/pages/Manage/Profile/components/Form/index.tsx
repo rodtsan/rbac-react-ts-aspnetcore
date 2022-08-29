@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useFormik } from 'formik';
 import { getStorage, ref, uploadString } from 'firebase/storage';
-import { ProfileProps } from '@common/models/Interfaces';
-import { ProfileValidationSchema } from '@src/common/models/ValidationShemas';
+import { useFormik } from 'formik';
+import { Country, State, City } from 'country-state-city/lib';
+import { isEqual } from 'lodash';
+import { Profile } from '@common/models/Interfaces';
+import { ProfileValidationSchema } from '@common/models/ValidationShemas';
 /* Components */
 import ImageCropper, { ImageProps } from '@components/ImageCropper';
 import Spinner from '@components/Spinner';
-import { isEqual } from 'lodash';
-import { fbsImageBaseUrl } from '@src/common/appSettings';
-import { Country, State, City } from 'country-state-city/lib';
+import { FBS_PROFILE_IMAGES_PATH, FBS_BASEURL } from '@common/appSettings';
 
-const fbStorage = getStorage();
+const firebaseStorage = getStorage();
+
+export interface ProfileProps extends Profile {}
 
 export interface ProfileFormProps {
     loading: boolean;
@@ -60,33 +62,38 @@ const ProfileForm: React.FunctionComponent<ProfileFormProps> = ({
 
     const handleDone = (image: ImageProps) => {
         if (Object.keys(image).length > 2) {
-            setIsLoading(true);
             var base64result = image.data?.split(',')[1];
-            const imagePath = '/images/profiles/';
-            const fsRef = ref(
-                fbStorage,
-                String(imagePath)
-                    .concat(profile.profileId as string)
-                    .concat('_')
-                    .concat(image?.name!)
-            );
-            uploadString(fsRef, base64result!, 'base64', {
-                contentType: image.type
-            })
-                .then((snapshot) => {
-                    formik.setValues((prevState) => {
-                        return {
-                            ...prevState,
-                            pictureUrl: String(fbsImageBaseUrl)
-                                .concat(encodeURIComponent(snapshot.ref.fullPath))
-                                .concat('?alt=media')
-                        };
-                    });
+            try {
+                setIsLoading(true);
+                const fsRef = ref(
+                    firebaseStorage,
+                    String(FBS_PROFILE_IMAGES_PATH)
+                        .concat(profile.profileId as string)
+                        .concat('_')
+                        .concat(image?.name!)
+                );
+                uploadString(fsRef, base64result!, 'base64', {
+                    contentType: image.type
                 })
-                .catch(onError)
-                .finally(() => {
-                    setIsLoading(false);
-                });
+                    .then((snapshot) => {
+                        formik.setValues((prevState) => {
+                            return {
+                                ...prevState,
+                                pictureUrl: String(FBS_BASEURL)
+                                    .concat(encodeURIComponent(snapshot.ref.fullPath))
+                                    .concat('?alt=media')
+                            };
+                        });
+                    })
+                    .catch(onError)
+                    .finally(() => {
+                        setIsLoading(false);
+                    });
+            } catch (error) {
+                onError(error as Error);
+            } finally {
+                setIsLoading(false);
+            }
         }
         setVisible(false);
     };

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { RegisterPageProps } from '.';
 /* Components */
 import Container from '@components/Container';
-import RegisterForm, { RegisterProps } from './components/RegisterForm';
+import RegisterForm, { RegisterProps } from './Form';
 import Alert from '@components/Alert';
 
 const View: React.FunctionComponent<RegisterPageProps> = ({
@@ -31,11 +31,12 @@ const View: React.FunctionComponent<RegisterPageProps> = ({
     const handleSubmit = (values: RegisterProps) => {
         register(values);
     };
+    
     const hasError = some(error);
     return (
         <Container title="Register">
-            <div className="mx-auto" style={{ maxWidth: 500 }}>
-                <h1>Register</h1>
+            <div className="mx-auto" style={{ maxWidth: 420 }}>
+                <h2 className="d-block text-center">Register</h2>
                 <div className="py-3" />
                 {hasError && <Alert type="alert-danger">{error.message}</Alert>}
                 <RegisterForm loading={loading} onSubmit={handleSubmit} />

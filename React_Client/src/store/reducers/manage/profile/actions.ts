@@ -1,13 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Profile } from '@store/reducers/payloads';
+import { Profile } from '@common/models/Interfaces';
 export * from './reducer';
 
-export const types = {
-    GET_PROFILE: 'profiles/get_profile',
-    UPDATE_PROFILE: 'profiles/update_profile',
-    SET_PROFILE_CANCEL: 'profiles/set_profile_cancel'
-};
-
-export const getProfile = createAction<string>(types.GET_PROFILE);
-export const updateProfile = createAction<Profile>(types.UPDATE_PROFILE);
-export const setCancel = createAction<string>(types.SET_PROFILE_CANCEL);
+/** type: {reducer:profiles}/{name: get_profile) */
+export const getProfile = createAction<string>('profiles/getProfile');
+export const updateProfile = createAction<Profile>('profiles/updateProfile');
+export const cancelAction = createAction<string>('profiles/cancelAction');

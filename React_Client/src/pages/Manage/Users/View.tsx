@@ -8,7 +8,7 @@ import Pagination from '@components/Pagination';
 import SearchInput from '@components/SearchInput';
 import Table from './components/Table';
 import Modal from '@src/components/Modal';
-import EditUser, { UserFormProps } from './components/Edit';
+import EditUser, { UserProps } from './components/Edit';
 
 const View: React.FunctionComponent<UsersPageProps> = ({
     loading,
@@ -73,7 +73,7 @@ const View: React.FunctionComponent<UsersPageProps> = ({
         event.preventDefault();
     };
 
-    const handleUpdate = (otherProps: UserFormProps) => {
+    const handleUpdate = (otherProps: UserProps) => {
         updateUser({
             userId: selectedUser?.userId as string,
             ...otherProps

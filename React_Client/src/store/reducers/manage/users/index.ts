@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
-import { Epic, ofType, StateObservable } from 'redux-observable';
+import { Epic, StateObservable } from 'redux-observable';
 import { getUrl } from '@common/api';
 import { RootAction, RootState } from '@common/models/Interfaces';
 import {
@@ -12,11 +12,11 @@ import {
     setError,
     setLoading,
     setPaging,
-    types,
     updateUser,
     deleteUser,
     setUserRoles,
     setDeleteUser,
+    cancelAction
 } from './actions';
 
 export const getUserInfoEpic: Epic = (
@@ -26,10 +26,8 @@ export const getUserInfoEpic: Epic = (
 ) =>
     action$.pipe(
         filter(getUserInfo.match),
-        switchMap((action) => {
-            const url = String(getUrl('profileBaseUrl', 'getUserInfo')).concat(
-                action.payload
-            );
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'getUserInfo')).concat(payload);
             return get(
                 url,
                 {},
@@ -39,7 +37,7 @@ export const getUserInfoEpic: Epic = (
                     succeeded: setPaging,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.SET_USERS_CANCEL))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
@@ -52,19 +50,18 @@ export const getUsersPerPageEpic: Epic = (
 ) =>
     action$.pipe(
         filter(getUsersPerPage.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = getUrl('profileBaseUrl', 'getUsersPerPage');
-            return get(url, action.payload, {
+            return get(url, payload, {
                 delay: 500,
                 startWith: setLoading,
                 succeeded: setPaging,
                 failed: setError,
                 endWith: setLoading,
-                cancel: action$.pipe(ofType(types.SET_USERS_CANCEL))
+                cancel: action$.pipe(filter(cancelAction.match))
             });
         })
     );
-
 
 export const getUserRolesEpic: Epic = (
     action$: Observable<RootAction>,
@@ -73,10 +70,8 @@ export const getUserRolesEpic: Epic = (
 ) =>
     action$.pipe(
         filter(getUserRoles.match),
-        switchMap((action) => {
-            const url = String(getUrl('profileBaseUrl', 'getUserRoles')).concat(
-                action.payload
-            );
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'getUserRoles')).concat(payload);
             return get(
                 url,
                 {},
@@ -85,7 +80,7 @@ export const getUserRolesEpic: Epic = (
                     succeeded: setUserRoles,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.SET_USERS_CANCEL))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
@@ -98,13 +93,13 @@ export const addUserRolesEpic: Epic = (
 ) =>
     action$.pipe(
         filter(addUserRoles.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = String(getUrl('profileBaseUrl', 'addUserRoles')).concat(
-                action.payload.userId
+                payload.userId
             );
             return patch(
                 url,
-                action.payload,
+                payload,
                 {},
                 {
                     delay: 1000,
@@ -112,7 +107,7 @@ export const addUserRolesEpic: Epic = (
                     succeeded: setUpdateUser,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.SET_USERS_CANCEL))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
@@ -125,13 +120,13 @@ export const updateUserEpic: Epic = (
 ) =>
     action$.pipe(
         filter(updateUser.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = String(getUrl('profileBaseUrl', 'updateUser')).concat(
-                action.payload.userId
+                payload.userId
             );
             return patch(
                 url,
-                action.payload,
+                payload,
                 {},
                 {
                     delay: 1000,
@@ -139,7 +134,7 @@ export const updateUserEpic: Epic = (
                     succeeded: setUpdateUser,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.SET_USERS_CANCEL))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
@@ -152,17 +147,15 @@ export const deleteUserEpic: Epic = (
 ) =>
     action$.pipe(
         filter(deleteUser.match),
-        switchMap((action) => {
-            const url = String(getUrl('profileBaseUrl', 'deleteUser')).concat(
-                action.payload
-            );
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'deleteUser')).concat(payload);
             return del(url, {
                 delay: 1000,
                 startWith: setLoading,
                 succeeded: setDeleteUser,
                 failed: setError,
                 endWith: setLoading,
-                cancel: action$.pipe(ofType(types.SET_USERS_CANCEL))
+                cancel: action$.pipe(filter(cancelAction.match))
             });
         })
     );

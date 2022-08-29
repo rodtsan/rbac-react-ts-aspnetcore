@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
-import '@common/firebase/app';
+import isEmpty from 'lodash/isEmpty';
 import Modal from '../Modal';
-import { isEmpty } from 'lodash';
+import '@common/firebase/app';
+
+
 
 export interface ImageProps {
     name?: string;
@@ -42,9 +44,9 @@ const ImageCropper: React.FunctionComponent<ImageCropperProps> = ({
         const cropper = rce.cropper;
         if (typeof cropper.getCroppedCanvas === 'function') {
             if (cropper.getCroppedCanvas().toDataURL() !== null) {
-                setImageProps((prev) => {
+                setImageProps((prevState) => {
                     return {
-                        ...prev,
+                        ...prevState,
                         data: cropper.getCroppedCanvas().toDataURL()
                     };
                 });

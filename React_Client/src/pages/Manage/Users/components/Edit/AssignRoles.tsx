@@ -1,5 +1,9 @@
-import { UserRole } from '@src/common/models';
 import React from 'react';
+import { UserRole } from '@common/models/Interfaces';
+
+interface UserRole extends UserRole {
+    roleId: string;
+}
 
 interface AssignRolesProps {
     roles?: UserRole[];

@@ -3,10 +3,10 @@ import classNames from 'classnames';
 import React from 'react';
 
 export interface PaginationProps {
-    page: number;
-    pageSize: number;
-    siblingCount: number;
-    recordCount: number;
+    page?: number;
+    pageSize?: number;
+    siblingCount?: number;
+    recordCount?: number;
     onPageChange: (page: number) => void;
 }
 
@@ -17,12 +17,13 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     recordCount,
     onPageChange
 }) => {
-    const pages = usePagination({
-        page,
-        pageSize,
-        siblingCount,
-        recordCount
-    });
+    const params = {
+        page: Number(page),
+        pageSize: Number(pageSize),
+        siblingCount: Number(siblingCount),
+        recordCount: Number(recordCount)
+    };
+    const pages = usePagination(params);
 
     const handlePage =
         (page: number) => (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -32,13 +33,13 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         };
 
     const handlePrevious = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        onPageChange(page - 1);
+        onPageChange(params.page - 1);
         event.preventDefault();
         event.stopPropagation();
     };
 
     const handleNext = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        onPageChange(page + 1);
+        onPageChange(params.page + 1);
         event.preventDefault();
         event.stopPropagation();
     };
@@ -100,5 +101,11 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     );
 };
 
+Pagination.defaultProps = {
+    page: 1,
+    pageSize: 10,
+    recordCount: 0,
+    siblingCount: 3
+};
 
 export default Pagination;

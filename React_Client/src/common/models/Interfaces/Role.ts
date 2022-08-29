@@ -1,5 +1,5 @@
 /** Return Payload */
-export default interface Role {
+export interface Role {
     roleId: string;
     name?: string;
     description?: string;

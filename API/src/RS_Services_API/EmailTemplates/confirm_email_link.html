@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Confirm Email</title>
+    <style>
+        html, body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .container {
+            max-width: 500px; 
+            margin:10px auto;
+            padding:10px;
+        }
+        .link {
+            font-weight:bold;
+            background-color: #ccc;
+            text-align: center;
+            padding:8px 15px;
+            text-decoration: none;
+            border-radius: 2px;
+            color: black;
+        }
+    </style>
+  </head>
+  <body>
+      <div class="container">
+        <strong>Welcome, {{FirstName}}</strong>
+        <br />
+        <p>We're excited to have you get started.</p>
+        <p>First, you need to confirm your account. Just press the button below.</p>
+        <br />
+        <a class="link" href="{{Link}}">Confirm</a>
+        <br />
+        <br />
+        <p>Cheers,
+        <br />
+        <strong>Web Team</strong>
+        </p>
+      </div>
+  </body>
+</html>

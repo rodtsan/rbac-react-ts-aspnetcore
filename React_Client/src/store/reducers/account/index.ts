@@ -1,10 +1,9 @@
 import { Observable } from 'rxjs';
-import { switchMap, filter } from 'rxjs/operators';
-import { Epic, ofType, StateObservable } from 'redux-observable';
+import { filter, switchMap } from 'rxjs/operators';
+import { Epic, StateObservable } from 'redux-observable';
 import { getUrl } from '@common/api';
-import { Action, RootState } from '@common/models/Interfaces';
+import { RootAction, RootState } from '@common/models/Interfaces';
 import {
-    types,
     userLogin,
     register,
     setError,
@@ -14,35 +13,41 @@ import {
     setRevoke,
     revoke,
     getUserInfo,
-    setUserInfo
+    setUserInfo,
+    cancelAction,
+    confirmEmail,
+    setEmailConfirmed,
+    forgotPassword,
+    resetPassword,
+    setPasswordChanged
 } from './actions';
 
 export const loginEpic: Epic = (
-    action$: Observable<Action>,
+    action$: Observable<RootAction>,
     state$: StateObservable<RootState>,
     { post }
 ) =>
     action$.pipe(
         filter(userLogin.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = getUrl('profileBaseUrl', 'signIn');
             return post(
                 url,
-                action.payload,
+                payload,
                 {},
                 {
                     startWith: setLoading,
                     succeeded: setLoggedIn,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.CANCEL_OPERATION))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
     );
 
 export const revokeEpic: Epic = (
-    action$: Observable<Action>,
+    action$: Observable<RootAction>,
     state$: StateObservable<RootState>,
     { post }
 ) =>
@@ -58,29 +63,25 @@ export const revokeEpic: Epic = (
                     startWith: setLoading,
                     succeeded: setRevoke,
                     failed: setError,
-                    endWith: (loading: boolean) => {
-                        setLoading(loading);
-                        window.location.href = '/login';
-                    },
-                    cancel: action$.pipe(ofType(types.CANCEL_OPERATION))
+                    endWith: setLoading,
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
-        }),
-        // ignoreElements()
+        })
     );
 
 export const registerEpic: Epic = (
-    action$: Observable<Action>,
+    action$: Observable<RootAction>,
     state$: StateObservable<RootState>,
     { post }
 ) =>
     action$.pipe(
         filter(register.match),
-        switchMap((action) => {
+        switchMap(({ payload }) => {
             const url = getUrl('profileBaseUrl', 'signUp');
             return post(
                 url,
-                action.payload,
+                payload,
                 {},
                 {
                     delay: 1000,
@@ -88,23 +89,21 @@ export const registerEpic: Epic = (
                     succeeded: setRegister,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.CANCEL_OPERATION))
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })
     );
 
 export const getUserInfoEpic: Epic = (
-    action$: Observable<Action>,
+    action$: Observable<RootAction>,
     state$: StateObservable<RootState>,
     { get }
 ) =>
     action$.pipe(
         filter(getUserInfo.match),
-        switchMap((action) => {
-            const url = String(getUrl('profileBaseUrl', 'getUserInfo')).concat(
-                action.payload
-            );
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'getUserInfo')).concat(payload);
             return get(
                 url,
                 {},
@@ -113,7 +112,69 @@ export const getUserInfoEpic: Epic = (
                     succeeded: setUserInfo,
                     failed: setError,
                     endWith: setLoading,
-                    cancel: action$.pipe(ofType(types.CANCEL_OPERATION))
+                    cancel: action$.pipe(filter(cancelAction.match))
+                }
+            );
+        })
+    );
+
+export const confirmEmailEpic: Epic = (
+    action$: Observable<RootAction>,
+    state$: StateObservable<RootState>,
+    { get }
+) =>
+    action$.pipe(
+        filter(confirmEmail.match),
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'confirmEmail'));
+            return get(url, payload, {
+                startWith: setLoading,
+                succeeded: setEmailConfirmed,
+                failed: setError,
+                endWith: setLoading,
+                cancel: action$.pipe(filter(cancelAction.match))
+            });
+        })
+    );
+
+export const forgotPasswordEpic: Epic = (
+    action$: Observable<RootAction>,
+    state$: StateObservable<RootState>,
+    { get }
+) =>
+    action$.pipe(
+        filter(forgotPassword.match),
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'forgotPassword'));
+            return get(url, payload, {
+                startWith: setLoading,
+                succeeded: setEmailConfirmed,
+                failed: setError,
+                endWith: setLoading,
+                cancel: action$.pipe(filter(cancelAction.match))
+            });
+        })
+    );
+
+export const resetPasswordEpic: Epic = (
+    action$: Observable<RootAction>,
+    state$: StateObservable<RootState>,
+    { post }
+) =>
+    action$.pipe(
+        filter(resetPassword.match),
+        switchMap(({ payload }) => {
+            const url = String(getUrl('profileBaseUrl', 'resetPassword'));
+            return post(
+                url,
+                payload,
+                {},
+                {
+                    startWith: setLoading,
+                    succeeded: setPasswordChanged,
+                    failed: setError,
+                    endWith: setLoading,
+                    cancel: action$.pipe(filter(cancelAction.match))
                 }
             );
         })

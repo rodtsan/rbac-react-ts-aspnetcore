@@ -1,5 +1,5 @@
-import Role from './Role';
-import User, { UserRole } from './User';
+import { Role } from "./Role";
+import { User, UserRole } from "./User";
 
 /* Action/return payload */
 export interface Paging<T = {}> {
@@ -13,7 +13,7 @@ export interface Paging<T = {}> {
 }
 
 /* Return payload */
-export interface UserLogin {
+export interface IUserLogin {
     userId?: string;
     firstName?: string;
     lastName?: string;
@@ -34,7 +34,7 @@ export interface TokenResponse {
     refreshToken?: string;
 }
 
-export default interface RootState {
+export interface RootState {
     users: {
         loading: boolean;
         paging: Paging<User>;
@@ -50,9 +50,10 @@ export default interface RootState {
         loading: boolean;
         isLoggedIn: boolean;
         isRegistered: boolean;
-        isPasswordReset: boolean;
+        isEmailConfirmed: boolean;
+        isPasswordChanged: boolean;
         error: Error | { message?: string };
-        userLogin: UserLogin | {};
+        userLogin: IUserLogin | {};
     };
     profiles: {
         loading: boolean;

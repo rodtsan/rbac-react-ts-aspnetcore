@@ -7,7 +7,8 @@ export const loginSlice = createSlice({
         loading: false,
         isLoggedIn: false,
         isRegistered: false,
-        isPasswordReset: false,
+        isEmailConfirmed: false,
+        isPasswordChanged: false,
         error: {},
         userLogin: {}
     },
@@ -32,10 +33,22 @@ export const loginSlice = createSlice({
                 isLoggedIn: true
             };
         },
+        setEmailConfirmed: (state, action) => {
+            return {
+                ...state,
+                isEmailConfirmed: true
+            };
+        },
+        setPasswordChanged: (state, action) => {
+            return {
+                ...state,
+                isPasswordChanged: true
+            };
+        },
         setRevoke: (state, action) => {
             return {
                 ...state,
-                isLoggedIn: false
+                isLoggedIn: false,
             };
         },
         setLoading: (state, action) => {
@@ -53,11 +66,11 @@ export const loginSlice = createSlice({
         setClear: () => {
             return {
                 loading: false,
-                loggedIn: false,
+                isLoggedIn: false,
                 isRegistered: false,
-                isPasswordReset: false,
+                isEmailConfirmed: false,
+                isPasswordChanged: false,
                 error: {},
-                register: {},
                 userLogin: {}
             };
         }
@@ -70,6 +83,8 @@ export const {
     setLoading,
     setError,
     setLoggedIn,
+    setEmailConfirmed,
+    setPasswordChanged,
     setRevoke,
     setUserInfo,
     setClear

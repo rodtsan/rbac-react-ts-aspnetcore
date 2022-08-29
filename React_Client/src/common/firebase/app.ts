@@ -15,7 +15,5 @@ const firebaseConfig = {
     appId: process.env.FIREBASE_APP_ID
 };
 
-export const baseURL = 'https://firebasestorage.googleapis.com/v0/b/rodtsan-cloud-storage.appspot.com/o/';
-
 
 export default initializeApp(firebaseConfig);

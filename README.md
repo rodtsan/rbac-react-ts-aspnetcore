@@ -70,7 +70,7 @@ Verify the deployment by navigating to your client address in your preferred bro
 ``` 
 
 ## Screenshots
-
+* [API in Swagger UI](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/aspnetcore-swagger-ui.png?raw=true)
 * [Login Page](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-login.png?raw=true)
 * [Manage Users](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-users.png?raw=true)
 * [Manage Roles](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-roles.png?raw=true)

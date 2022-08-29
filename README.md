@@ -75,4 +75,4 @@ Verify the deployment by navigating to your client address in your preferred bro
 * [Manage Users](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-users.png?raw=true)
 * [Manage Roles](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-roles.png?raw=true)
 * [My Profile](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-my-profile.png?raw=true)
-* <a href="https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-my-profile.png?raw=true" target="_blank" rel="noopener">My Profile</a>
+* <a href="https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-my-profile.png" target="_blank" rel="noopener">My Profile</a>

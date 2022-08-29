@@ -16,8 +16,6 @@ namespace RS_Services_API.Commands
         {
             if (Model.UserId == Guid.Empty)
                 yield return "UserId field is required";
-            // if (!Model.Roles.Any())
-            //     yield return "Should have atleast one role";
 
         }
 

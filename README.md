@@ -8,10 +8,13 @@ This implementation covers the scenario of a basic microservice based system whe
 
 This repository uses a number of frameworks and libraries to work:
 
-* [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [ReactJS](https://reactjs.org/) - A JavaScript library for building user interfaces.
+* [TypeScript](https://www.typescriptlang.org/) - TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale. 
+* [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps. 
 * [Firebase/Storage](https://firebase.google.com/docs/storage) - Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale.
 * [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio) - Is an API that supports user login functionality. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
 * [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - SQL Server Express is a free edition of SQL Server
+* [Swagger UI](https://swagger.io/swagger-ui/) - Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs. It allows both computers and humans to understand the capabilities of a REST API without direct access to the source code.
 
 ## Installation and Run
 
@@ -20,9 +23,14 @@ The database file (App_Data/AspNetIdentity-Localdb) is already in the project, s
 To run server 
 
 ```sh
-    cd .\API\src\RS_Services_API
+    cd API/src/RS_Services_API
     dotnet restore
     dotnet run
+``` 
+Verify the deployment by navigating to your server address in your preferred browser.
+
+```sh
+    http://localhost:5000/swagger/index.html
 ``` 
 
 If you want to create your database by yourself, here is what need to do.
@@ -46,24 +54,20 @@ If you want to create your database by yourself, here is what need to do.
     dotnet tool install --global dotnet-ef
 ``` 
 
-Verify the deployment by navigating to your server address in your preferred browser.
-
-```sh
-    http://localhost:5000/swagger/index.html
-``` 
-
 To run client
 
 ```sh
-    cd .\React_Client
+    cd React_Client
     npm install
     npm start
 ``` 
 
-Verify the deployment by navigating to your server address in your preferred browser.
+Verify the deployment by navigating to your client address in your preferred browser.
 
 ```sh
     http://localhost:3002/
 ``` 
 
-# Watch the video
+## Screenshots
+
+[Login Page](https://firebasestorage.googleapis.com/v0/b/rodtsan-cloud-storage.appspot.com/o/images%2Freact-ts-login.png?alt=media&token=7e5caba6-5446-4f17-81de-0242196da8be)

@@ -70,4 +70,4 @@ Verify the deployment by navigating to your client address in your preferred bro
 
 ## Screenshots
 
-[Login Page](https://firebasestorage.googleapis.com/v0/b/rodtsan-cloud-storage.appspot.com/o/images%2Freact-ts-login.png?alt=media&token=7e5caba6-5446-4f17-81de-0242196da8be)
+[Login Page](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-login.png?raw=true)

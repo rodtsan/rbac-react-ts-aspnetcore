@@ -49,7 +49,7 @@ If you want to create your database by yourself, here is what need to do.
     dotnet ef database update --context ProfileDbContext
 ``` 
 
-- If dotnet-ef tool is not installed
+- If dotnet-ef tool is not installed then
 
 ```sh
     dotnet tool install --global dotnet-ef

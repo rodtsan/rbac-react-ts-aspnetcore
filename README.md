@@ -13,6 +13,7 @@ This repository uses a number of frameworks and libraries to work:
 * [Redux](https://redux.js.org/) - A Predictable State Container for JS Apps. 
 * [Firebase/Storage](https://firebase.google.com/docs/storage) - Cloud Storage for Firebase is a powerful, simple, and cost-effective object storage service built for Google scale.
 * [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-6.0&tabs=visual-studio) - Is an API that supports user login functionality. Manages users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
+* [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) - CQRS stands for Command and Query Responsibility Segregation, a pattern that separates read and update operations for a data store.
 * [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) - SQL Server Express is a free edition of SQL Server
 * [Swagger UI](https://swagger.io/swagger-ui/) - Swagger (OpenAPI) is a language-agnostic specification for describing REST APIs. It allows both computers and humans to understand the capabilities of a REST API without direct access to the source code.
 
@@ -70,4 +71,7 @@ Verify the deployment by navigating to your client address in your preferred bro
 
 ## Screenshots
 
-[Login Page](https://firebasestorage.googleapis.com/v0/b/rodtsan-cloud-storage.appspot.com/o/images%2Freact-ts-login.png?alt=media&token=7e5caba6-5446-4f17-81de-0242196da8be)
+* [Login Page](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-login.png?raw=true)
+* [Manage Users](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-users.png?raw=true)
+* [Manage Roles](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-roles.png?raw=true)
+* [My Profile](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-my-profile.png?raw=true)

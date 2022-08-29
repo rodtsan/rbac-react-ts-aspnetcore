@@ -75,3 +75,6 @@ Verify the deployment by navigating to your client address in your preferred bro
 * [Manage Users](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-users.png?raw=true)
 * [Manage Roles](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-roles.png?raw=true)
 * [My Profile](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-my-profile.png?raw=true)
+
+## MIT LICENSE
+The source code for the site is licensed under the MIT license, which you can find in the [LICENSE.md](https://github.com/rodtsan/rbac-react-ts-aspnetcore/LICENCE.md) file.

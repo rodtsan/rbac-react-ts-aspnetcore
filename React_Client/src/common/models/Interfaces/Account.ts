@@ -10,7 +10,7 @@ export interface Login {
     password: string;
 }
 
-export interface IRefreshToken {
+export interface RefreshToken {
     accessToken?: string;
     refreshToken?: string;
 }
@@ -31,7 +31,7 @@ export interface ForgotPassword {
     forgotPasswordReturnUrl: string;
 }
 
-export interface IRefreshToken {
+export interface RefreshToken {
     accessToken?: string;
     refreshToken?: string;
 }

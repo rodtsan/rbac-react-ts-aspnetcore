@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 import { Epic } from 'redux-observable';
 import { StateObservable } from 'redux-observable';
-import { getUrl } from '@common/api';
+import { getUrl } from '@src/common/APIs';
 import { RootAction, RootState } from '@common/models/Interfaces';
 import {
     getRolesPerPage,

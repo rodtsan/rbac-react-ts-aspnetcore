@@ -12,12 +12,12 @@ export const initialRootState: RootState = {
         loading: false,
         paging: {},
         userRoles: [],
-        error: {}
+        error: {},
     },
     roles: {
         loading: false,
         paging: {},
-        error: {} as Error
+        error: {},
     },
     account: {
         loading: false,
@@ -31,13 +31,13 @@ export const initialRootState: RootState = {
     profiles: {
         loading: false,
         error: {},
-        profile: {}
+        profile: {},
     },
     weatherForcast: {
         loading: false,
         records: [],
-        error: {}
-    }
+        error: {},
+    },
 };
 
 export const loadState = () => {

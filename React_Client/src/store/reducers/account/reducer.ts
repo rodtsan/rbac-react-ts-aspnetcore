@@ -1,5 +1,6 @@
 import { saveAuthorizeState } from '@store/localStorage';
 import { createSlice } from '@reduxjs/toolkit';
+import { UserLogin } from '@src/common/models/Interfaces';
 
 export const loginSlice = createSlice({
     name: 'account',
@@ -10,14 +11,13 @@ export const loginSlice = createSlice({
         isEmailConfirmed: false,
         isPasswordChanged: false,
         error: {},
-        userLogin: {}
+        userLogin: {} as UserLogin
     },
     reducers: {
         setRegister: (state, action) => {
             return {
                 ...state,
                 isRegistered: true,
-                register: action.payload
             };
         },
         setUserInfo: (state, action) => {

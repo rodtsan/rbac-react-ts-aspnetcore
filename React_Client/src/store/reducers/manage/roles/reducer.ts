@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Paging } from '@common/models/Interfaces';
+import { Paging, Role } from '@common/models/Interfaces';
 
 export const rolesSlice = createSlice({
     name: 'roles',
     initialState: {
         loading: false,
-        paging: {} as Paging<{ roleId: string }>,
+        paging: {} as Paging<Role>,
         error: {}
     },
     reducers: {
@@ -59,7 +59,7 @@ export const rolesSlice = createSlice({
         setClear: () => {
             return {
                 loading: false,
-                paging: {} as Paging<{ roleId: string }>,
+                paging: {},
                 error: {}
             };
         }
@@ -67,6 +67,7 @@ export const rolesSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setPaging, setLoading, setUpdateRole, setError, setClear } = rolesSlice.actions;
+export const { setPaging, setLoading, setUpdateRole, setError, setClear } =
+    rolesSlice.actions;
 
 export default rolesSlice.reducer;

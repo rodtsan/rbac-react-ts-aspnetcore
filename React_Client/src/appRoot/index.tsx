@@ -4,7 +4,7 @@ import { isAuthenticated } from '@store/localStorage';
 /** Components*/
 import routes, { ExtendedRouteProps } from './routes';
 import Layout from '@pages/Shared/Layout';
-import Spinner from '@components/Spinner'
+import Spinner from '@components/controls/Spinner'
 
 
 const AppRoot: React.FunctionComponent<{}> = () => {

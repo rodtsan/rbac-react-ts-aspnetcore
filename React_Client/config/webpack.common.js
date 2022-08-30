@@ -55,7 +55,7 @@ module.exports = {
             '@src': paths.appSrc,
             '@components': path.join(paths.appSrc, './components/'),
             '@common': path.join(paths.appSrc, './common/'),
-            '@pages': path.join(paths.appSrc, './pages/'),
+            '@pages': path.join(paths.appSrc, './components/pages/'),
             '@assets': path.join(paths.appSrc, './assets/'),
             '@settings': path.join(paths.appSrc, './settings/'),
             '@store': path.join(paths.appSrc, './store/'),

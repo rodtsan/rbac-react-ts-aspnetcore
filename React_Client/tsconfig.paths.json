@@ -12,7 +12,7 @@
                 "./components/*"
             ],
             "@pages/*": [
-                "./pages/*"
+                "./components/pages/*"
             ],
             "@assets/*": [
                 "./assets/*"

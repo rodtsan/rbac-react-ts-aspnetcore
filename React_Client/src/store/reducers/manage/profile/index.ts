@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { switchMap, filter } from 'rxjs/operators';
 import { Epic, StateObservable } from 'redux-observable';
-import { getUrl } from '@common/api';
+import { getUrl } from '@src/common/APIs';
 import { RootAction, RootState } from '@common/models/Interfaces';
 import {
     getProfile,
@@ -44,7 +44,7 @@ export const updateProfileEpic: Epic = (
         filter(updateProfile.match),
         switchMap(({ payload }) => {
             const url = String(getUrl('profileBaseUrl', 'updateProfile')).concat(
-                payload.profileId
+                payload.profileId as string
             );
             return patch(
                 url,

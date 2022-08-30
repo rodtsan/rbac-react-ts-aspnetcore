@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { Profile } from '@src/common/models/Interfaces';
 
 export const profileSlice = createSlice({
     name: 'profiles',
     initialState: {
         loading: false,
-        profile: {},
-        error: {}
+        error: {},
+        profile: {} as Profile
     },
     reducers: {
         setData: (state, action) => {
@@ -34,8 +35,8 @@ export const profileSlice = createSlice({
         setClear: () => {
             return {
                 loading: false,
-                profile: {},
-                error: {}
+                error: {},
+                profile: {}
             };
         }
     }

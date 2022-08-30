@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { getBaseUrl, getPath, headerJson } from '@common/api';
+import { getBaseUrl, getPath, headerJson } from '@src/common/APIs';
 import { clearState, getTokens, saveTokens } from '@store/localStorage';
 
 /** Set default config for axios instance */

@@ -12,8 +12,8 @@ import Profile from '@pages/Manage/Profile';
 import Unauthorized from '@pages/Shared/Unauthorized';
 import About from '@pages/About';
 import Projects from '@pages/Projects';
-import ResetPassword from '@src/pages/Account/ForgotPassword';
-import ChangePassword from '@src/pages/Account/ResetPassword';
+import ResetPassword from '@pages/Account/ForgotPassword';
+import ChangePassword from '@pages/Account/ResetPassword';
 
 const Main = lazy(() => import('@pages/Main'));
 

@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Paging, UserRole } from '@common/models/Interfaces';
+import { Paging, User, UserRole } from '@common/models/Interfaces';
 
 export const usersSlice = createSlice({
     name: 'users',
     initialState: {
         loading: false,
-        paging: {} as Paging<{ userId: string }>,
-        error: {},
-        userRoles: [] as UserRole[]
+        paging: {} as Paging<User>,
+        userRoles: [] as UserRole[],
+        error: {}
     },
     reducers: {
         setPaging: (state, action) => {
@@ -77,9 +77,9 @@ export const usersSlice = createSlice({
         setClear: () => {
             return {
                 loading: false,
-                paging: {} as Paging<{ userId: string }>,
-                error: {},
-                userRoles: []
+                paging: {},
+                userRoles: [],
+                error: {}
             };
         }
     }

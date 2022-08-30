@@ -13,7 +13,7 @@ const epicMiddleware = createEpicMiddleware<RootAction, RootAction, RootState>({
 const store = configureStore({
     reducer: reducers,
     middleware: [epicMiddleware],
-    preloadedState: initialRootState
+    preloadedState: initialRootState,
 });
 
 epicMiddleware.run(epics);
@@ -21,7 +21,5 @@ epicMiddleware.run(epics);
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch = () => store.dispatch;
-
-
 
 export default store;

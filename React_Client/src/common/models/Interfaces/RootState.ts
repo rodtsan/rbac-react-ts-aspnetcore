@@ -1,5 +1,5 @@
-import { Role } from "./Role";
-import { User, UserRole } from "./User";
+import { Role } from './Role';
+import { User, UserRole } from './User';
 
 /* Action/return payload */
 export interface Paging<T = {}> {
@@ -13,7 +13,7 @@ export interface Paging<T = {}> {
 }
 
 /* Return payload */
-export interface IUserLogin {
+export interface UserLogin {
     userId?: string;
     firstName?: string;
     lastName?: string;
@@ -34,17 +34,21 @@ export interface TokenResponse {
     refreshToken?: string;
 }
 
+export interface ErrorEmpty {
+    message?: string;
+}
+
 export interface RootState {
     users: {
         loading: boolean;
         paging: Paging<User>;
         userRoles: UserRole[];
-        error: Error | { message?: string };
+        error: Error | ErrorEmpty;
     };
     roles: {
         loading: boolean;
         paging: Paging<Role>;
-        error: Error | { message?: string };
+        error: Error | ErrorEmpty;
     };
     account: {
         loading: boolean;
@@ -52,17 +56,17 @@ export interface RootState {
         isRegistered: boolean;
         isEmailConfirmed: boolean;
         isPasswordChanged: boolean;
-        error: Error | { message?: string };
-        userLogin: IUserLogin | {};
+        error: Error | ErrorEmpty;
+        userLogin: UserLogin;
     };
     profiles: {
         loading: boolean;
-        error: Error | { message?: string };
+        error: Error | ErrorEmpty;
         profile: {};
     };
     weatherForcast: {
         loading: boolean;
         records: never[] | [];
-        error: Error | { message?: string };
+        error: Error | ErrorEmpty;
     };
 }

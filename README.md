@@ -70,17 +70,17 @@ Verify the deployment by navigating to your client address in your preferred bro
 ``` 
 
 ## Screenshots
- * API in Swagger UI
-   ![alt text](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/aspnetcore-swagger-ui.png?raw=true)
  * Login Page
    ![alt text](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-login.png?raw=true)
-   Manage Users
+ * Manage Users
    ![alt text](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-users.png?raw=true)
  * Manage Roles
    ![alt text](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-manage-roles.png?raw=true)
  * My Profile
    ![alt text](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/react-ts-my-profile.png?raw=true)
-
+ * API in Swagger UI
+   ![alt text](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/screenshots/aspnetcore-swagger-ui.png?raw=true)
+   
 ## MIT LICENSE
 The source code for the site is licensed under the MIT license, which you can find in the [LICENSE.md](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/LICENCE.md) file.
 

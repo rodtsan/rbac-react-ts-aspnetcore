@@ -78,3 +78,4 @@ Verify the deployment by navigating to your client address in your preferred bro
 
 ## MIT LICENSE
 The source code for the site is licensed under the MIT license, which you can find in the [LICENSE.md](https://github.com/rodtsan/rbac-react-ts-aspnetcore/blob/master/LICENCE.md) file.
+

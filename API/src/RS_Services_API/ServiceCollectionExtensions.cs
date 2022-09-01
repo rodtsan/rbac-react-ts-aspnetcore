@@ -1,20 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using RS_Services_API.Data;
+using RS_Services_API.Queries;
+using RS_Services_API.Services;
 using RS_Services_Core.Configuration;
 using RS_Services_Core.Models;
-using RS_Services_API.Data;
+using RS_Services_Core.Services;
 using System.Security.Claims;
 using System.Text;
-using RS_Services_API.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-using Autofac.Extensions.DependencyInjection;
-using Autofac;
-using RS_Services_API.Modules;
-using RS_Services_API.Queries;
-using RS_Services_Core.Services;
 using System.Text.Json.Serialization;
 
 namespace RS_Services_API
@@ -23,21 +20,24 @@ namespace RS_Services_API
     {
         public static void AddDependencyServices(this IServiceCollection services, IConfiguration configuration)
         {
+            
             var jwtOptions = configuration.GetSection(JwtOptions.ConfigSection);
             services.Configure<JwtOptions>(jwtOptions);
             var esOptions = configuration.GetSection(EmailSettingsOptions.ConfigSection);
             services.Configure<EmailSettingsOptions>(esOptions);
-            services.AddDbContextDependencyGroup(configuration);
+			
+			services.AddDbContextDependencyGroup(configuration);
             services.AddIdentityDependencyGroup();
             services.AddAuthenticationDependencyGroup(jwtOptions.Get<JwtOptions>());
-            // Transient, Scope, and SingleTon
+            // transient, scoped, singleton dependencies
             services.AddOtherDependencyGroup();
+            //
             services.AddApiVersioningDependencyGroup();
             services.AddSwaggerGenDependencyGroup();
             services.AddCorsDependencyGroup();
         }
 
-		#region "Dependencies"
+		#region "group of depencies"
 
 		private static IServiceCollection AddOtherDependencyGroup(this IServiceCollection services)
         {

@@ -67,26 +67,41 @@ namespace RS_Services_API.Queries
             }
             int pageSize = Math.Max(10, model.PageSize);
             int page = Math.Max(1, model.Page);
-            var pageModel = new PageModel<RoleViewModel>
+
+            var userRoles = _dbContext.UserRoles
+                .AsNoTracking()
+                .GroupBy(q => q.RoleId).Select(q => new
+                {
+                    RoleId = q.Key,
+                    Count = q.Count(),
+                });
+
+
+			var pageModel = new PageModel<RoleViewModel>
             {
                 Page = model.Page,
                 PageSize = pageSize,
                 RecordCount = query.Count(),
-                Records = await query.Skip((page - 1) * pageSize).Take(pageSize).Join(_dbContext.UserRoles
-                .AsNoTracking()
-                .GroupBy(q => q.RoleId)
-                .Select(q => new
-                {
-                    RoleId = q.Key,
-                    Count = q.Count()
-                }), x => x.Id, y => y.RoleId, (x, y) => new RoleViewModel
+                Records = (await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync())
+                .GroupJoin(userRoles, x => x.Id, y => y.RoleId, (x, y) => new
                 {
                     RoleId = x.Id,
-                    Name = x.Name,
-                    Description = x.Description ?? string.Empty,
-                    CreatedWhen = x.CreatedWhen,
-                    UsersCount = y.Count
-                }).ToListAsync()
+                    x.Name,
+                    x.Description,
+                    x.CreatedWhen,
+                    UserRoles = y,
+                }).SelectMany(q => q.UserRoles.DefaultIfEmpty(new
+                {
+                    q.RoleId,
+                    Count = 0
+                }), (x, y) => new RoleViewModel
+				{
+					RoleId = x.RoleId,
+					Name = x.Name,
+					Description = x.Description,
+					CreatedWhen = x.CreatedWhen,
+					UsersCount = y.Count
+				}).ToList()
             };
 
             return pageModel;

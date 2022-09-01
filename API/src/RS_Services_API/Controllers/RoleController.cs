@@ -40,14 +40,14 @@ namespace RS_Services_API.Controllers
 		public async Task<ActionResult> CreateRole([FromBody] CreateRoleModel model)
 		{
 			var command = new CreateRoleCommand(model);
-			return await ExecuteAsync(command);
+			return await SendAsync(command);
 		}
 
 		[HttpPatch("{roleId:guid}")]
 		public async Task<ActionResult> UpdateRole([FromBody] UpdateRoleModel model)
 		{
 			var command = new UpdateRoleCommand(model);
-			return await ExecuteAsync(command);
+			return await SendAsync(command);
 		}
 
 		[HttpDelete("{roleId:guid}")]

@@ -1,14 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-using RS_Services_Core.Configuration;
-using RS_Services_Core.Services;
 using RS_Services_API.Modules;
-using RS_Services_API.Queries;
-using System.Text.Json.Serialization;
 using System.Security.Authentication;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace RS_Services_API
 {

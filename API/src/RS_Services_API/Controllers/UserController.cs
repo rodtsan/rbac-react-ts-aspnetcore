@@ -12,7 +12,7 @@ namespace RS_Services_API.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/Users/[action]")]
     [ApiController]
-    // [Authorize(Roles = "administrator")]
+    [Authorize(Roles = "administrator")]
     public class UserController : BaseController
     {
         private readonly IUserQueries _userQueries;
@@ -69,7 +69,7 @@ namespace RS_Services_API.Controllers
         public async Task<ActionResult> DeleteUser(Guid userId)
         {
             var command = new DeleteUserCommand(userId);
-            return await ExecuteAsync(command);
+            return await SendAsync(command);
         }
 
     }

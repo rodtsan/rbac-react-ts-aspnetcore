@@ -8,7 +8,9 @@ namespace RS_Services_API.Data
 {
     public class ProfileDbContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>, IProfileDbContext
     {
-        public ProfileDbContext(DbContextOptions<ProfileDbContext> options) : base(options) { }
+        public ProfileDbContext(DbContextOptions<ProfileDbContext> options) : base(options) {
+
+         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

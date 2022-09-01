@@ -14,22 +14,24 @@ namespace RS_Services_API.Queries
         }
         public async Task<IEnumerable<UserRoleViewModel>> GetUserRoles(Guid userId)
         {
-            var result = _dbContext.Roles
-                .AsNoTracking()
-                .AsEnumerable()
-                .GroupJoin(_dbContext.UserRoles
+            var userRoles = await _dbContext.UserRoles
                 .AsNoTracking()
                 .Where(q => q.UserId == userId)
                 .GroupBy(q => new
                 {
-                    q.RoleId,
-                    q.UserId
-                })
-                .Select(q => new
+                    q.UserId,
+                    q.RoleId
+                }).Select(q => new
                 {
                     q.Key.RoleId,
-                    q.Key.UserId,
-                }), x => x.Id, y => y.RoleId, (x, y) => new
+                    q.Key.UserId
+                })
+                .ToListAsync();
+
+            return _dbContext.Roles
+                .AsNoTracking()
+                .ToList()
+                .GroupJoin(userRoles, x => x.Id, y => y.RoleId, (x, y) => new
                 {
                     RoleId = x.Id,
                     x.Name,
@@ -49,21 +51,21 @@ namespace RS_Services_API.Queries
                 {
                     RoleId = q.RoleId,
                     Name = q.Name,
-                    Description = q.Description ?? string.Empty,
+                    Description = q.Description,
                     UserId = q.UserRole.UserId,
                     Selected = q.UserRole.UserId != Guid.Empty
-                }).OrderBy(q => q.Name);
+                }).ToList();
+				
 
-            return await Task.FromResult(result);
         }
 
         public async Task<UserViewModel> GetUserInfo(Guid userId)
         {
-            var result = _dbContext.Users
+            return (await _dbContext.Users
                 .Include(q => q.Profile)
                 .AsNoTracking()
                 .Where(q => q.Id == userId && !q.Deleted)
-                .AsEnumerable()
+                .ToListAsync())
                 .GroupJoin(_dbContext.Roles.AsNoTracking().Join(_dbContext.UserRoles.AsNoTracking(), x => x.Id, y => y.RoleId, (x, y) => new
                 {
                     RoleId = x.Id,
@@ -72,9 +74,8 @@ namespace RS_Services_API.Queries
                 }).GroupBy(q => q.UserId).Select(q => new
                 {
                     UserId = q.Key,
-                    Roles = q.Select(q1 => q1.Name)
-                }), x => x.Id, y => y.UserId, (x, y) =>
-                new
+                    Roles = q.Select(r => r.Name)
+                }), x => x.Id, y => y.UserId, (x, y) => new
                 {
                     UserId = x.Id,
                     x.Profile.FirstName,
@@ -111,7 +112,6 @@ namespace RS_Services_API.Queries
                     Deleted = x.Deleted,
                     Roles = y.Roles
                 }).SingleOrDefault();
-            return await Task.FromResult(result);
         }
 
         public async Task<PageModel<UserViewModel>> GetUsersPerPage(PageModel model)
@@ -120,54 +120,23 @@ namespace RS_Services_API.Queries
                 .Include(q => q.Profile)
                 .AsNoTracking()
                 .Where(q => q.Deleted == model.Deleted)
-                .AsEnumerable()
-                .GroupJoin(_dbContext.Roles.AsNoTracking().Join(_dbContext.UserRoles.AsNoTracking(), x => x.Id, y => y.RoleId, (x, y) => new
+                .Select(q => new
                 {
-                    RoleId = x.Id,
-                    x.Name,
-                    y.UserId
-                }).GroupBy(q => q.UserId).Select(q => new
-                {
-                    UserId = q.Key,
-                    Roles = q.Select(r => r.Name)
-                }), x => x.Id, y => y.UserId, (x, y) =>
-                new
-                {
-                    UserId = x.Id,
-                    x.Profile.FirstName,
-                    x.Profile.LastName,
-                    x.Profile.PictureUrl,
-                    x.Email,
-                    x.EmailConfirmed,
-                    x.LockoutEnabled,
-                    x.PhoneNumberConfirmed,
-                    x.TwoFactorEnabled,
-                    x.AccessFailedCount,
-                    x.CreatedWhen,
-                    x.LastEditedWhen,
-                    x.Deleted,
-                    Roles = y
-                }).SelectMany(q => q.Roles.DefaultIfEmpty(new
-                {
-                    q.UserId,
-                    Roles = Enumerable.Empty<string>()
-                }), (x, y) => new UserViewModel
-                {
-                    UserId = x.UserId,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Email = x.Email,
-                    PictureUrl = x.PictureUrl,
-                    EmailConfirmed = x.EmailConfirmed,
-                    LockoutEnabled = x.LockoutEnabled,
-                    PhoneNumberConfirmed = x.PhoneNumberConfirmed,
-                    TwoFactorEnabled = x.TwoFactorEnabled,
-                    AccessFailedCount = x.AccessFailedCount,
-                    CreatedWhen = x.CreatedWhen,
-                    LastEditedWhen = x.LastEditedWhen,
-                    Deleted = x.Deleted,
-                    Roles = y.Roles
+                    UserId = q.Id,
+                    q.Profile.FirstName,
+                    q.Profile.LastName,
+                    q.Profile.PictureUrl,
+                    q.Email,
+                    q.EmailConfirmed,
+                    q.LockoutEnabled,
+                    q.PhoneNumberConfirmed,
+                    q.TwoFactorEnabled,
+                    q.AccessFailedCount,
+                    q.CreatedWhen,
+                    q.LastEditedWhen,
+                    q.Deleted,
                 });
+
 
             if (!string.IsNullOrEmpty(model.Keywords))
             {
@@ -229,35 +198,14 @@ namespace RS_Services_API.Queries
             }
 
 
-            int pageSize = model.PageSize;
+            int pageSize = Math.Max(10, model.PageSize);
             int page = Math.Max(1, model.Page);
             var pageModel = new PageModel<UserViewModel>
             {
                 Page = model.Page,
                 PageSize = pageSize,
-                RecordCount = query.Count()
-            };
-
-            if (pageSize > 0)
-            {
-                pageModel.Records = query.Skip((page - 1) * pageSize).Take(pageSize);
-            }
-            else
-            {
-                pageModel.Records = query.AsEnumerable();
-            }
-
-            return await Task.FromResult(pageModel);
-        }
-
-        public async Task<UserClaimsViewModel> GetUserClaims(Guid userId)
-        {
-            var result = _dbContext.Users
-                .Include(q => q.Profile)
-                .AsNoTracking()
-                .Where(q => q.Id == userId && !q.Deleted)
-                .AsEnumerable()
-                .GroupJoin(_dbContext.Roles.AsNoTracking().Join(_dbContext.UserRoles.AsNoTracking(), x => x.Id, y => y.RoleId, (x, y) => new
+                RecordCount = query.Count(),
+                Records = (await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync()).GroupJoin(_dbContext.Roles.AsNoTracking().Join(_dbContext.UserRoles.AsNoTracking(), x => x.Id, y => y.RoleId, (x, y) => new
                 {
                     RoleId = x.Id,
                     x.Name,
@@ -266,61 +214,115 @@ namespace RS_Services_API.Queries
                 {
                     UserId = q.Key,
                     Roles = q.Select(r => r.Name)
-                }), x => x.Id, y => y.UserId, (x, y) =>
-                new
+                }), x => x.UserId, y => y.UserId, (x, y) => new
                 {
-                    UserId = x.Id,
-                    x.Profile.FirstName,
-                    x.Profile.LastName,
-                    x.Profile.PictureUrl,
+                    x.UserId,
+                    x.FirstName,
+                    x.LastName,
+                    x.PictureUrl,
                     x.Email,
+                    x.EmailConfirmed,
+                    x.LockoutEnabled,
+                    x.PhoneNumberConfirmed,
+                    x.TwoFactorEnabled,
+                    x.AccessFailedCount,
+                    x.CreatedWhen,
+                    x.LastEditedWhen,
+                    x.Deleted,
                     Roles = y
                 }).SelectMany(q => q.Roles.DefaultIfEmpty(new
                 {
                     q.UserId,
                     Roles = Enumerable.Empty<string>()
-                }), (x, y) => new UserClaimsViewModel
+                }), (x, y) => new UserViewModel
                 {
-                    Id = x.UserId,
-                    Name = x.Email,
-                    GivenName = x.FirstName,
-                    FamilyName = x.LastName,
+                    UserId = x.UserId,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
                     Email = x.Email,
-                    Picture = x.PictureUrl,
+                    PictureUrl = x.PictureUrl,
+                    EmailConfirmed = x.EmailConfirmed,
+                    LockoutEnabled = x.LockoutEnabled,
+                    PhoneNumberConfirmed = x.PhoneNumberConfirmed,
+                    TwoFactorEnabled = x.TwoFactorEnabled,
+                    AccessFailedCount = x.AccessFailedCount,
+                    CreatedWhen = x.CreatedWhen,
+                    LastEditedWhen = x.LastEditedWhen,
+                    Deleted = x.Deleted,
                     Roles = y.Roles
-                }).SingleOrDefault() ?? new UserClaimsViewModel { };
+                })
+            };
 
-            return await Task.FromResult(result);
+            return pageModel;
+        }
+
+        public async Task<UserClaimsViewModel> GetUserClaims(Guid userId)
+        {
+            return (await _dbContext.Users
+                         .Include(q => q.Profile)
+                         .AsNoTracking()
+                         .Where(q => q.Id == userId && q.Deleted == false)
+                         .ToListAsync())
+                         .GroupJoin(_dbContext.Roles.AsNoTracking().Join(_dbContext.UserRoles.AsNoTracking(), x => x.Id, y => y.RoleId, (x, y) => new
+                         {
+                             RoleId = x.Id,
+                             x.Name,
+                             y.UserId
+                         }).GroupBy(q => q.UserId).Select(q => new
+                         {
+                             UserId = q.Key,
+                             Roles = q.Select(r => r.Name)
+                         }), x => x.Id, y => y.UserId, (x, y) =>
+                         new
+                         {
+                             UserId = x.Id,
+                             x.Profile.FirstName,
+                             x.Profile.LastName,
+                             x.Profile.PictureUrl,
+                             x.Email,
+                             Roles = y
+                         }).SelectMany(q => q.Roles.DefaultIfEmpty(new
+                         {
+                             q.UserId,
+                             Roles = Enumerable.Empty<string>(),
+                         }), (x, y) => new UserClaimsViewModel
+                         {
+                             Id = x.UserId,
+                             Name = x.Email,
+                             GivenName = x.FirstName,
+                             FamilyName = x.LastName,
+                             Email = x.Email,
+                             Picture = x.PictureUrl,
+                             Roles = y.Roles.ToList()
+                         }).SingleOrDefault();
         }
 
         public async Task<ProfileViewModel> GetUserProfile(Guid profileId)
         {
             return await _dbContext.Users
-                .Include(q => q.Profile)
-                .AsNoTracking()
-                .Where(q => q.Id == profileId && !q.Deleted)
-                .Select(q => new ProfileViewModel
+                .AsNoTracking().Join(_dbContext.Profiles.AsNoTracking(), x => x.Id, y => y.ProfileId, (x, y) => new ProfileViewModel
                 {
-                    UserId = q.Id,
-                    ProfileId = q.Id,
-                    FirstName = q.Profile.FirstName ?? string.Empty,
-                    LastName = q.Profile.LastName ?? string.Empty,
-                    MiddleName = q.Profile.MiddleName ?? string.Empty,
-                    CompanyName = q.Profile.CompanyName ?? string.Empty,
-                    Website = q.Profile.Website ?? string.Empty,
-                    Email = q.Email,
-                    Phone = q.Profile.Phone ?? string.Empty,
-                    PictureUrl = q.Profile.PictureUrl ?? string.Empty,
-                    Address1 = q.Profile.Address1 ?? string.Empty,
-                    Address2 = q.Profile.Address2 ?? string.Empty,
-                    City = q.Profile.City ?? string.Empty,
-                    StateCode = q.Profile.StateCode ?? string.Empty,
-                    PostalCode = q.Profile.PostalCode ?? string.Empty,
-                    CountryCode = q.Profile.CountryCode ?? string.Empty,
-                    BirthDate = q.Profile.BirthDate,
-                    CreatedWhen = q.CreatedWhen,
-                    LastEditedWhen = q.LastEditedWhen,
-                }).SingleOrDefaultAsync();
+                    ProfileId = x.Id,
+                    FirstName = y.FirstName,
+                    LastName = y.LastName,
+                    MiddleName = y.MiddleName,
+                    CompanyName = y.CompanyName,
+                    Website = y.Website,
+                    Email = x.Email,
+                    Phone = y.Phone,
+                    PictureUrl = y.PictureUrl,
+                    Address1 = y.Address1,
+                    Address2 = y.Address2,
+                    City = y.City,
+                    StateCode = y.StateCode,
+                    PostalCode = y.PostalCode,
+                    CountryCode = y.CountryCode,
+                    BirthDate = y.BirthDate,
+                    CreatedWhen = x.CreatedWhen,
+                    LastEditedWhen = x.LastEditedWhen,
+                    Deleted = x.Deleted
+                })
+                .SingleOrDefaultAsync(q => q.ProfileId == profileId && q.Deleted == false);
         }
 
     }

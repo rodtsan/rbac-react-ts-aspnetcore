@@ -13,16 +13,22 @@ namespace RS_Services_API.Commands
         private readonly SignInManager<User> _signInManager;
         private readonly ITokenProvider _tokenProvider;
         private readonly IUserQueries _queries;
+        private readonly ILogger<SignInCommandHandler> _logger;
+        private readonly IHttpContextAccessor _httpContext;
         public SignInCommandHandler(
           UserManager userManager,
           SignInManager<User> signInManager,
           ITokenProvider tokenProvider,
-          IUserQueries queries)
+          IUserQueries queries,
+          ILogger<SignInCommandHandler> logger,
+          IHttpContextAccessor httpContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenProvider = tokenProvider;
             _queries = queries;
+            _logger = logger;
+            _httpContext = httpContext;
         }
 
         public async Task<CommandHandlerResult> HandleAsync(SignInCommand command)
@@ -52,6 +58,7 @@ namespace RS_Services_API.Commands
 
                 if (updateResult.Succeeded)
                 {
+                    _logger.LogInformation($"{user.UserName} has successfully signed in.");
                     return CommandHandlerResult.OkDelayed(this, _ => new
                     {
                         AccessToken = token,
@@ -66,8 +73,8 @@ namespace RS_Services_API.Commands
             if (result.IsLockedOut)
                 return CommandHandlerResult.Error("This user account is locked");
 
-			/* Check whether email is confirmed */
-            if (result.IsNotAllowed) 
+            /* Check whether email is confirmed */
+            if (result.IsNotAllowed)
                 return CommandHandlerResult.Error("This user account is not allowed");
 
 

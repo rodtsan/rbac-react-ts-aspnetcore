@@ -1,15 +1,6 @@
-import {
-    defer,
-    Observable,
-    ObservableInput,
-    of,
-    finalize,
-    concat,
-    from,
-    forkJoin
-} from 'rxjs';
+import { Observable, ObservableInput, of, finalize, concat, from, forkJoin } from 'rxjs';
 import { catchError, takeUntil, mergeMap, delay } from 'rxjs/operators';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import axiosInstance from './axios';
 
 export interface Options {
@@ -19,7 +10,6 @@ export interface Options {
     endWith?: (loading: boolean) => void;
     cancel?: ObservableInput<any>;
     delay?: number;
-    config?: AxiosRequestConfig;
 }
 
 const get = <T = {}, Params = {} | string>(
@@ -28,6 +18,8 @@ const get = <T = {}, Params = {} | string>(
     options?: Options
 ): Observable<T | void> => {
     const timeOut = options?.delay || 0;
+    const start$ = of(options?.startWith!(true));
+    const end$ = of(options?.endWith!(false));
     const observable$ = from(axiosInstance.get(url, { params: queryParams })).pipe(
         delay(timeOut),
         mergeMap((result) => [options?.succeeded!(result.data)]),
@@ -36,14 +28,9 @@ const get = <T = {}, Params = {} | string>(
                 err.message = err.response?.data as string;
             return [options?.failed!(err)];
         }),
-        takeUntil(options?.cancel!),
-        finalize(() => of(options?.endWith!(false)))
+        takeUntil(options?.cancel!)
     );
-    return concat(
-        of(options?.startWith!(true)),
-        observable$,
-        of(options?.endWith!(false))
-    );
+    return concat(start$, observable$, end$);
 };
 
 const post = <T>(
@@ -53,6 +40,8 @@ const post = <T>(
     options?: Options
 ): Observable<T | void> => {
     const timeOut = options?.delay || 0;
+    const start$ = of(options?.startWith!(true));
+    const end$ = of(options?.endWith!(false));
     const observable$ = from(
         axiosInstance.post<T>(url, body, { params: queryParams })
     ).pipe(
@@ -66,11 +55,7 @@ const post = <T>(
         takeUntil(options?.cancel!),
         finalize(() => of(options?.endWith!(false)))
     );
-    return concat(
-        of(options?.startWith!(true)),
-        observable$,
-        of(options?.endWith!(false))
-    );
+    return concat(start$, observable$, end$);
 };
 
 const put = <T>(
@@ -79,7 +64,9 @@ const put = <T>(
     queryParams?: object,
     options?: Options
 ): Observable<T | void> => {
-    const observable$ = defer(() =>
+    const start$ = of(options?.startWith!(true));
+    const end$ = of(options?.endWith!(false));
+    const observable$ = from(
         axiosInstance.put<T>(url, body, { params: queryParams })
     ).pipe(
         mergeMap((result) => [options?.succeeded!(result.data)]),
@@ -91,11 +78,7 @@ const put = <T>(
         takeUntil(options?.cancel!),
         finalize(() => of(options?.endWith!(false)))
     );
-    return concat(
-        of(options?.startWith!(true)),
-        observable$,
-        of(options?.endWith!(false))
-    );
+    return concat(start$, observable$, end$);
 };
 
 const patch = <T>(
@@ -105,6 +88,8 @@ const patch = <T>(
     options?: Options
 ): Observable<T | void> => {
     const timeOut = options?.delay || 0;
+    const start$ = of(options?.startWith!(true));
+    const end$ = of(options?.endWith!(false));
     const observable$ = from(
         axiosInstance.patch<T>(url, body, { params: queryParams })
     ).pipe(
@@ -118,14 +103,12 @@ const patch = <T>(
         takeUntil(options?.cancel!),
         finalize(() => of(options?.endWith!(false)))
     );
-    return concat(
-        of(options?.startWith!(true)),
-        observable$,
-        of(options?.endWith!(false))
-    );
+    return concat(start$, observable$, end$);
 };
 
 const del = <T>(url: string, options?: Options) => {
+    const start$ = of(options?.startWith!(true));
+    const end$ = of(options?.endWith!(false));
     const observable$ = from(axiosInstance.delete(url)).pipe(
         mergeMap((result) => [options?.succeeded!(result.data)]),
         catchError((err: Error | AxiosError) => {
@@ -136,14 +119,12 @@ const del = <T>(url: string, options?: Options) => {
         takeUntil(options?.cancel!),
         finalize(() => of(options?.endWith!(false)))
     );
-    return concat(
-        of(options?.startWith!(true)),
-        observable$,
-        of(options?.endWith!(false))
-    );
+    return concat(start$, observable$, end$);
 };
 
 const all = <T>(requests: Promise<AxiosResponse<any, any>>[], options?: Options) => {
+    const start$ = of(options?.startWith!(true));
+    const end$ = of(options?.endWith!(false));
     const observable$ = forkJoin(requests).pipe(
         mergeMap((result) => [options?.succeeded!(result.map((r) => r.data))]),
         catchError((err: Error | AxiosError) => {
@@ -154,11 +135,7 @@ const all = <T>(requests: Promise<AxiosResponse<any, any>>[], options?: Options)
         takeUntil(options?.cancel!),
         finalize(() => of(options?.endWith!(false)))
     );
-    return concat(
-        of(options?.startWith!(true)),
-        observable$,
-        of(options?.endWith!(false))
-    );
+    return concat(start$, observable$, end$);
 };
 
 export { axiosInstance };

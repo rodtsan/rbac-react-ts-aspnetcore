@@ -6,6 +6,6 @@ export interface ApiBaseUrls {
 }
 
 export const apiBaseUrls: ApiBaseUrls = {
-    profileBaseUrl: `http://localhost:5000/api/${apiVersion.profileBaseUrl}`,
-    messengerBaseUrl: `http://localhost:5002/api/${apiVersion.messengerBaseUrl}`
+    profileBaseUrl: `https://localhost:5000/api/${apiVersion.profileBaseUrl}`,
+    messengerBaseUrl: `https://localhost:5002/api/${apiVersion.messengerBaseUrl}`
 };

@@ -12,7 +12,7 @@ namespace RS_Services_API.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/Users/[action]")]
     [ApiController]
-    [Authorize(Roles = "administrator")]
+    // [Authorize(Roles = "administrator")]
     public class UserController : BaseController
     {
         private readonly IUserQueries _userQueries;
@@ -43,7 +43,15 @@ namespace RS_Services_API.Controllers
             return Ok(userRoles);
         }
 
-        [HttpPatch("{userId:guid}")]
+		[HttpGet("{userId:guid}")]
+		public async Task<ActionResult> GetUserClaims(Guid userId)
+		{
+			var user = await _userQueries.GetUserClaims(userId);
+			if (user is null) return NotFound();
+			return Ok(user);
+		}
+
+		[HttpPatch("{userId:guid}")]
         public async Task<ActionResult> AddUserRoles([FromBody] AddUserRolesModel model)
         {
             var command = new AddUserRolesCommand(model);

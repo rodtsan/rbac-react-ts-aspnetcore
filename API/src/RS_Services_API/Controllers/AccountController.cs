@@ -27,14 +27,14 @@ namespace RS_Services_API.Controllers
         public async Task<ActionResult> SignUp([FromBody] SignUpModel model)
         {
             var command = new SignUpCommand(model);
-            return await ExecuteAsync(command);
+            return await SendAsync(command);
         }
 
         [HttpPost]
         public async Task<ActionResult> SignIn([FromBody] SignInModel model)
         {
             var command = new SignInCommand(model);
-            return await ExecuteAsync(command);
+            return await SendAsync(command);
         }
 
         [HttpGet]

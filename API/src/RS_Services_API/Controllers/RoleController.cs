@@ -12,7 +12,7 @@ namespace RS_Services_API.Controllers
 	[ApiVersion("1.0")]
 	[Route("api/v{version:apiVersion}/Roles/[action]")]
 	[ApiController]
-	[Authorize(Roles = "administrator")]
+	// [Authorize(Roles = "administrator")]
 	public class RoleController : BaseController
 	{
 		private readonly IRoleQueries _roleQueries;

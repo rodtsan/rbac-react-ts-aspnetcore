@@ -16,6 +16,7 @@ namespace RS_Services_API.Controllers
     public class ProfileController : BaseController
     {
         private readonly IUserQueries _userQueries;
+        private readonly ILogger<ProfileController> _logger;
         public ProfileController(IUserQueries userQueries, ICommandBus commandBus) : base(commandBus)
         {
             _userQueries = userQueries;

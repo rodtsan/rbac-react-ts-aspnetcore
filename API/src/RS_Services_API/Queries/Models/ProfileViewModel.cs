@@ -21,5 +21,6 @@
         public string PostalCode { get; set; }
         public DateTime CreatedWhen { get; set; }
         public DateTime? LastEditedWhen { get; set; }
+        public bool Deleted { get; set; }
     }
 }

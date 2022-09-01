@@ -7,120 +7,63 @@ using RS_Services_Core.Services;
 using RS_Services_API.Modules;
 using RS_Services_API.Queries;
 using System.Text.Json.Serialization;
+using System.Security.Authentication;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace RS_Services_API
 {
-	public static class Program
-	{
-		public static void Main(string[] args)
-		{
-			var builder = WebApplication.CreateBuilder(args);
-			builder.Host.AppConfiguration();
+    public static class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            builder.Host.AppConfiguration();
+            builder.WebHost.UseKestrel(options =>
+            {
+                options.ConfigureHttpsDefaults(config =>
+                {
+                    config.SslProtocols = SslProtocols.Tls12;
+                });
+            });
 
-			var services = builder.Services;
-			var configuration = builder.Configuration;
 
-			services.SetDbContext(configuration);
-			services.SetAuthentication(configuration);
+            builder.Services.AddDependencyServices(builder.Configuration);
 
-			services.Configure<JwtOptions>(configuration.GetSection(JwtOptions.JwtSection));
-			services.Configure<EmailSettingsOptions>(configuration.GetSection(EmailSettingsOptions.EmailSettingsSection));
+            var app = builder.Build();
+            app.UseCors();
 
-			services.AddTransient<IUserQueries, UserQueries>();
-			services.AddTransient<IRoleQueries, RoleQueries>();
-			services.AddScoped<IEmailService, EmailService>();
-			services.AddScoped<ITokenProvider, TokenProvider>();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                });
+            }
+            app.UseStaticFiles();
+            app.UseApiVersioning();
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.MapControllers();
+            app.Run();
 
-			services.AddControllers().AddJsonOptions(options =>
-				options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-			services.AddVersionedApiExplorer(options =>
-			{
-				options.GroupNameFormat = "'v'VVV";
-				options.SubstituteApiVersionInUrl = true;
-			});
-			services.AddApiVersioning(setup =>
-			{
-				setup.DefaultApiVersion = new ApiVersion(1, 0);
-				setup.AssumeDefaultVersionWhenUnspecified = true;
-				setup.ReportApiVersions = true;
-			});
+        }
 
-			services.AddSwaggerGen(options =>
-			{
-				options.SwaggerDoc("v1", new OpenApiInfo { Title = "Authorization", Version = "v1" });
-				options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-				{
-					In = ParameterLocation.Header,
-					Description = "JWT Token Authentication",
-					Name = "Authorization",
-					Type = SecuritySchemeType.Http,
-					BearerFormat = "JWT",
-					Scheme = "Bearer"
-				});
-				options.AddSecurityRequirement(new OpenApiSecurityRequirement
-				{
-					{
-						new OpenApiSecurityScheme
-						{
-							Reference=new OpenApiReference
-							{
-								Type= ReferenceType.SecurityScheme,
-								Id="Bearer"
-							}
-						},
-						Array.Empty<string>()
-					}
-				});
-			});
-
-			services.AddCors(options =>
-			{
-				options.AddDefaultPolicy(policy =>
-				{
-					policy.SetIsOriginAllowed(host => true)
-					.AllowAnyHeader()
-					.AllowAnyMethod()
-					.AllowCredentials();
-				});
-			});
-
-			var app = builder.Build();
-			app.UseCors();
-
-			if (app.Environment.IsDevelopment())
-			{
-				app.UseSwagger();
-				app.UseSwaggerUI(options =>
-				{
-					options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-				});
-			}
-			app.UseStaticFiles();
-			app.UseApiVersioning();
-			app.UseAuthentication();
-			app.UseAuthorization();
-			app.MapControllers();
-			app.Run();
-		}
-
-		public static void AppConfiguration(this ConfigureHostBuilder host)
-		{
-			host.ConfigureAppConfiguration((hostingContext, config) =>
-			{
-				config.SetBasePath(hostingContext.HostingEnvironment.ContentRootPath);
-				config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-				config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true);
-			}).ConfigureLogging((hostingContext, logging) =>
-			{
-				logging.AddConsole();
-				logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-			})
-			.UseServiceProviderFactory(new AutofacServiceProviderFactory())
-				.ConfigureContainer<ContainerBuilder>(container =>
-				{
-					container.RegisterModule(new AutofacBusinessModule());
-				}).UseConsoleLifetime();
-		}
-
-	}
+        public static IHostBuilder AppConfiguration(this IHostBuilder host) =>
+           host.ConfigureAppConfiguration((hostBuilder, config) =>
+           {
+               config.SetBasePath(hostBuilder.HostingEnvironment.ContentRootPath);
+               config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+               config.AddJsonFile($"appsettings.{hostBuilder.HostingEnvironment.EnvironmentName}.json", optional: true);
+           }).ConfigureLogging((hostBuilder, logging) =>
+            {
+                logging.AddConsole();
+                logging.AddConfiguration(hostBuilder.Configuration.GetSection("Logging"));
+            })
+           .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureContainer<ContainerBuilder>(container =>
+                {
+                    container.RegisterModule(new AutofacBusinessModule());
+                }).UseConsoleLifetime();
+    }
 }

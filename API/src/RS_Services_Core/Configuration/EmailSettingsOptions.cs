@@ -2,7 +2,7 @@
 {
 	public class EmailSettingsOptions
 	{
-		public static string EmailSettingsSection = "EmailSettings";
+		public static string ConfigSection = "EmailSettings";
 		public bool SendEmailEnabled { get; set; }
 		public string SmtpDomain { get; set; } = string.Empty;
 		public int SmtpPort { get; set; }

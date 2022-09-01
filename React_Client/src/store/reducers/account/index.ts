@@ -26,7 +26,7 @@ export const loginEpic: Epic = (
     action$: Observable<RootAction>,
     state$: StateObservable<RootState>,
     { post }
-) =>
+): Observable<unknown> =>
     action$.pipe(
         filter(userLogin.match),
         switchMap(({ payload }) => {

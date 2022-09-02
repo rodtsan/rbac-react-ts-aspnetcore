@@ -5,7 +5,7 @@ namespace RS_Services_API.Queries
 {
     public interface IRoleQueries
     {
-		Task<RoleViewModel> GetRole(Guid roleId);
-		Task<PageModel<RoleViewModel>> GetRolesPerPage(PageModel model);
+        Task<RoleViewModel> GetRoleAsync(Guid roleId);
+        Task<PageModel<RoleViewModel>> GetRolesPerPageAsync(PageModel model);
     }
 }

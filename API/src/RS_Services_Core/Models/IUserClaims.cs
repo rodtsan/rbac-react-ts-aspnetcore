@@ -8,6 +8,6 @@
 		Guid Id { get; set; }
 		string Name { get; set; }
 		string Picture { get; set; }
-		List<string> Roles { get; set; }
+		IEnumerable<string> Roles { get; set; }
 	}
 }

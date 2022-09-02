@@ -25,7 +25,7 @@ export const getRolesPerPageEpic: Epic = (
         switchMap(({ payload }) => {
             const url = getUrl('profileBaseUrl', 'getRolesPerPage');
             return get(url, payload, {
-                delay: 1000,
+                delay: 300,
                 startWith: setLoading,
                 succeeded: setPaging,
                 failed: setError,

@@ -11,8 +11,7 @@ namespace RS_Services_API.Queries
         {
             _dbContext = dbContext;
         }
-
-        public async Task<PageModel<RoleViewModel>> GetRolesPerPage(PageModel model)
+        public async Task<PageModel<RoleViewModel>> GetRolesPerPageAsync(PageModel model)
         {
             var query = _dbContext.Roles.AsNoTracking();
 
@@ -77,9 +76,9 @@ namespace RS_Services_API.Queries
                 });
 
 
-			var pageModel = new PageModel<RoleViewModel>
+            var pageModel = new PageModel<RoleViewModel>
             {
-                Page = model.Page,
+                Page = page,
                 PageSize = pageSize,
                 RecordCount = query.Count(),
                 Records = (await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync())
@@ -95,19 +94,19 @@ namespace RS_Services_API.Queries
                     q.RoleId,
                     Count = 0
                 }), (x, y) => new RoleViewModel
-				{
-					RoleId = x.RoleId,
-					Name = x.Name,
-					Description = x.Description,
-					CreatedWhen = x.CreatedWhen,
-					UsersCount = y.Count
-				}).ToList()
+                {
+                    RoleId = x.RoleId,
+                    Name = x.Name,
+                    Description = x.Description,
+                    CreatedWhen = x.CreatedWhen,
+                    UsersCount = y.Count
+                }).ToList()
             };
 
             return pageModel;
         }
 
-        public async Task<RoleViewModel> GetRole(Guid roleId)
+        public async Task<RoleViewModel> GetRoleAsync(Guid roleId)
         {
             return await _dbContext.Roles.AsNoTracking().Join(_dbContext.UserRoles
                 .AsNoTracking()

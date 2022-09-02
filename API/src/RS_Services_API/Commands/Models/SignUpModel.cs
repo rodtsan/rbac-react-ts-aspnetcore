@@ -7,7 +7,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
 		public string MiddleName { get; set; }
-        public string[] Roles { get; set; } = new[] { "user" };
+        public string[] Roles { get; set; } = new string[] { "user" };
         public string PictureUrl { get; set; }
 		public string ConfirmEmailUrl { get; set; }
         public string CompanyName { get; set; }

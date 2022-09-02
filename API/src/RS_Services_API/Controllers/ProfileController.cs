@@ -24,7 +24,7 @@ namespace RS_Services_API.Controllers
         [HttpGet("{profileId:guid}")]
         public async Task<ActionResult> GetProfile(Guid profileId)
         {
-            var profile = await _userQueries.GetUserProfile(profileId);
+            var profile = await _userQueries.GetProfileAsync(profileId);
             if (profile is null)
                 return NotFound();
             return Ok(profile);

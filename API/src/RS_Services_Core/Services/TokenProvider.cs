@@ -20,17 +20,9 @@ namespace RS_Services_Core.Services
 			_jwtOptions = options.Value;
 		}
 
-		public string GenerateJwtToken(IUserClaims userClaims)
+		public string GenerateJwtToken(IList<Claim> claims)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var claims = new Claim[] {
-				new Claim(ClaimTypes.NameIdentifier, userClaims.Id.ToString()),
-				new Claim(ClaimTypes.Name, userClaims.Name),
-				new Claim(ClaimTypes.Email, userClaims.Email),
-				new Claim(ClaimTypes.GivenName, userClaims.GivenName),
-				new Claim(ClaimTypes.Surname, userClaims.FamilyName),
-			  }.Union(userClaims.Roles.Select(r => new Claim(ClaimTypes.Role, r)));
-
 			var key = Encoding.UTF8.GetBytes(_jwtOptions.SigningKey);
 			var securityKey = new SymmetricSecurityKey(key);
 			var tokenDescriptor = new SecurityTokenDescriptor

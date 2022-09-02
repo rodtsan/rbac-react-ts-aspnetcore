@@ -20,7 +20,7 @@ export const loginSlice = createSlice({
                 isRegistered: true,
             };
         },
-        setUserInfo: (state, action) => {
+        setUser: (state, action) => {
             return {
                 ...state,
                 userLogin: action.payload
@@ -86,7 +86,7 @@ export const {
     setEmailConfirmed,
     setPasswordChanged,
     setRevoke,
-    setUserInfo,
+    setUser,
     setClear
 } = loginSlice.actions;
 

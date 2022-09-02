@@ -24,14 +24,14 @@ namespace RS_Services_API.Controllers
         [HttpGet]
         public async Task<ActionResult> GetUsersPerPage([FromQuery] PageModel model)
         {
-            var pageModel = await _userQueries.GetUsersPerPage(model);
+            var pageModel = await _userQueries.GetUsersPerPageAsync(model);
             return Ok(pageModel);
         }
 
         [HttpGet("{userId:guid}")]
-        public async Task<ActionResult> GetUserInfo(Guid userId)
+        public async Task<ActionResult> GetUser(Guid userId)
         {
-            var user = await _userQueries.GetUserInfo(userId);
+            var user = await _userQueries.GetUserAsync(userId);
             if (user is null) return NotFound();
             return Ok(user);
         }
@@ -39,17 +39,9 @@ namespace RS_Services_API.Controllers
         [HttpGet("{userId:guid}")]
         public async Task<ActionResult> GetUserRoles(Guid userId)
         {
-            var userRoles = await _userQueries.GetUserRoles(userId);
+            var userRoles = await _userQueries.GetUserRolesAsync(userId);
             return Ok(userRoles);
         }
-
-		[HttpGet("{userId:guid}")]
-		public async Task<ActionResult> GetUserClaims(Guid userId)
-		{
-			var user = await _userQueries.GetUserClaims(userId);
-			if (user is null) return NotFound();
-			return Ok(user);
-		}
 
 		[HttpPatch("{userId:guid}")]
         public async Task<ActionResult> AddUserRoles([FromBody] AddUserRolesModel model)

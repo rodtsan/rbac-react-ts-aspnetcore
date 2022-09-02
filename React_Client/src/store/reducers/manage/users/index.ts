@@ -27,12 +27,12 @@ export const getUserInfoEpic: Epic = (
     action$.pipe(
         filter(getUserInfo.match),
         switchMap(({ payload }) => {
-            const url = String(getUrl('profileBaseUrl', 'getUserInfo')).concat(payload);
+            const url = String(getUrl('profileBaseUrl', 'getUser')).concat(payload);
             return get(
                 url,
                 {},
                 {
-                    delay: 1000,
+                    delay: 300,
                     startWith: setLoading,
                     succeeded: setPaging,
                     failed: setError,
@@ -122,7 +122,7 @@ export const updateUserEpic: Epic = (
         filter(updateUser.match),
         switchMap(({ payload }) => {
             const url = String(getUrl('profileBaseUrl', 'updateUser')).concat(
-                payload.userId
+                payload.userId as string
             );
             return patch(
                 url,

@@ -46,9 +46,10 @@ namespace RS_Services_API.Commands
 
             if (result.Succeeded)
             {
-                var userClaim = await _queries.GetUserClaims(user.Id);
+                var claims = await _userManager.GetClaimsAsync(user);
 
-                string token = _tokenProvider.GenerateJwtToken(userClaim);
+                string token = _tokenProvider.GenerateJwtToken(claims);
+
                 string refreshToken = _tokenProvider.GenerateRefreshToken();
 
                 user.RefreshToken = refreshToken;

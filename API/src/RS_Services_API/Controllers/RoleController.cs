@@ -12,7 +12,7 @@ namespace RS_Services_API.Controllers
 	[ApiVersion("1.0")]
 	[Route("api/v{version:apiVersion}/Roles/[action]")]
 	[ApiController]
-	// [Authorize(Roles = "administrator")]
+	[Authorize(Roles = "administrator")]
 	public class RoleController : BaseController
 	{
 		private readonly IRoleQueries _roleQueries;
@@ -24,14 +24,14 @@ namespace RS_Services_API.Controllers
 		[HttpGet]
 		public async Task<ActionResult> GetRolesPerPage([FromQuery] PageModel model)
 		{
-			var roles = await _roleQueries.GetRolesPerPage(model);
+			var roles = await _roleQueries.GetRolesPerPageAsync(model);
 			return Ok(roles);
 		}
 
 		[HttpGet("{roleId:guid}")]
 		public async Task<ActionResult> GetRole(Guid roleId)
 		{
-			var role = await _roleQueries.GetRole(roleId);
+			var role = await _roleQueries.GetRoleAsync(roleId);
 			if (role is null) return NotFound();
 			return Ok(role);
 		}

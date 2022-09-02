@@ -17,6 +17,6 @@ export const register = createAction<Register>('account/register');
 export const confirmEmail = createAction<ConfirmEmail>('account/confirmEmail');
 export const forgotPassword = createAction<ForgotPassword>('account/forgotPassword');
 export const resetPassword = createAction<ResetPassword>('account/resetPassword');
-export const getUserInfo = createAction<string>('account/getUserInfo');
+export const getUser = createAction<string>('account/getUser');
 export const revoke = createAction('account/revoke');
 export const cancelAction = createAction<string>('account/cancelAction');

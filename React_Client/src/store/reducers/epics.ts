@@ -21,7 +21,7 @@ export default (
         login.loginEpic,
         login.registerEpic,
         login.revokeEpic,
-        login.getUserInfoEpic,
+        login.getUserEpic,
         profiles.getProfileEpic,
         profiles.updateProfileEpic,
         users.getUsersPerPageEpic,

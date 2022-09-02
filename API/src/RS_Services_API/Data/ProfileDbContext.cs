@@ -30,6 +30,8 @@ namespace RS_Services_API.Data
 				entity.Property(q => q.Deleted)
 			   .HasDefaultValue(false)
 			   .ValueGeneratedOnAdd();
+
+                entity.Navigation(n => n.Profile).AutoInclude(true);
 			});
 
             builder.Entity<Role>(entity =>

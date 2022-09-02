@@ -12,8 +12,8 @@ import {
     setLoggedIn,
     setRevoke,
     revoke,
-    getUserInfo,
-    setUserInfo,
+    getUser,
+    setUser,
     cancelAction,
     confirmEmail,
     setEmailConfirmed,
@@ -95,21 +95,21 @@ export const registerEpic: Epic = (
         })
     );
 
-export const getUserInfoEpic: Epic = (
+export const getUserEpic: Epic = (
     action$: Observable<RootAction>,
     state$: StateObservable<RootState>,
     { get }
 ) =>
     action$.pipe(
-        filter(getUserInfo.match),
+        filter(getUser.match),
         switchMap(({ payload }) => {
-            const url = String(getUrl('profileBaseUrl', 'getUserInfo')).concat(payload);
+            const url = String(getUrl('profileBaseUrl', 'getUser')).concat(payload);
             return get(
                 url,
                 {},
                 {
                     startWith: setLoading,
-                    succeeded: setUserInfo,
+                    succeeded: setUser,
                     failed: setError,
                     endWith: setLoading,
                     cancel: action$.pipe(filter(cancelAction.match))

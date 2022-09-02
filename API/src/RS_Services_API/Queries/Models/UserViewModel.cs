@@ -17,7 +17,7 @@ namespace RS_Services_API.Queries.Models
 		public DateTime CreatedWhen { get; set; }
 		public DateTime? LastEditedWhen { get; set; }
 		public bool Deleted { get; set; }
-		public IEnumerable<string> Roles { get; set; } = new List<string>();
+		public IEnumerable<string> Roles { get; set; } = Enumerable.Empty<string>();
 	}
 
 	public class UserNameViewModel

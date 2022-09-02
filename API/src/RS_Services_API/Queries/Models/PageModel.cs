@@ -12,6 +12,6 @@ namespace RS_Services_API.Queries.Models
     public class PageModel<T> : PageModel where T : class
     {
         public int RecordCount { get; set; }
-        public IEnumerable<T> Records { get; set; }
+        public IEnumerable<T> Records { get; set; } = Enumerable.Empty<T>();
     }
 }

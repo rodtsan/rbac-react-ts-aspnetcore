@@ -10,7 +10,7 @@ export interface ApiPaths {
     getUsersPerPage?: string;
     getUserRoles?: string;
     addUserRoles?: string;
-    getUserInfo?: string;
+    getUser?: string;
     updateUser?: string;
     deleteUser?: string;
     getProfile?: string;
@@ -30,7 +30,7 @@ export const apiPaths: ApiPaths = {
     getUserRoles: '/Users/GetUserRoles/',
     addUserRoles: '/Users/AddUserRoles/',
     getUsersPerPage: '/Users/GetUsersPerPage',
-    getUserInfo: '/Users/GetUserInfo/',
+    getUser: '/Users/GetUser/',
     updateUser: '/Users/UpdateUser/',
     deleteUser: '/Users/DeleteUser/',
     getProfile: '/Profiles/GetProfile/',

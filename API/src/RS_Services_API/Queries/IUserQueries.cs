@@ -3,12 +3,11 @@ using RS_Services_API.Queries.Models;
 
 namespace RS_Services_API.Queries
 {
-	public interface IUserQueries
-	{
-		Task<IEnumerable<UserRoleViewModel>> GetUserRoles(Guid userId);
-		Task<UserViewModel> GetUserInfo(Guid userId);
-		Task<PageModel<UserViewModel>> GetUsersPerPage(PageModel model);
-		Task<UserClaimsViewModel> GetUserClaims(Guid userId);
-		Task<ProfileViewModel> GetUserProfile(Guid profileId);
-	}
+    public interface IUserQueries
+    {
+        Task<IEnumerable<UserRoleViewModel>> GetUserRolesAsync(Guid userId);
+        Task<UserViewModel> GetUserAsync(Guid userId);
+        Task<PageModel<UserViewModel>> GetUsersPerPageAsync(PageModel model);
+        Task<ProfileViewModel> GetProfileAsync(Guid profileId);
+    }
 }

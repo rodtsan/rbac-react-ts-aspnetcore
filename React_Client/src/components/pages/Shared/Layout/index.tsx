@@ -1,5 +1,5 @@
 import React, { ReactNode, useLayoutEffect } from 'react';
-import { refreshToken, revoke, getUserInfo } from '@store/reducers/account/actions';
+import { refreshToken, revoke, getUser } from '@store/reducers/account/actions';
 import { connect, ConnectedProps } from 'react-redux';
 import Content from './Content';
 import Header from './Header';
@@ -18,7 +18,7 @@ function mapStateToProps(state: any) {
 }
 
 const mapDispatchToProps = {
-    getUserInfo,
+    getUser,
     refreshToken,
     revoke
 };
@@ -33,7 +33,7 @@ type LayoutProps = OwnProps & ConnectedProps<typeof connector>;
 
 const Layout: React.FunctionComponent<LayoutProps> = ({
     revoke,
-    getUserInfo,
+    getUser,
     userLogin,
     error,
     children
@@ -41,7 +41,7 @@ const Layout: React.FunctionComponent<LayoutProps> = ({
     const userId = getUserId();
     useLayoutEffect(() => {
         if (!isEmpty(userId)) {
-            getUserInfo(userId);
+            getUser(userId);
         }
     }, [userId]);
 

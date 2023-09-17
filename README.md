@@ -1,8 +1,8 @@
 # Welcome to RBAC-REACT-TS-ASPNETCORE
-A starter template for implementing JWT token from ASP.NET Core Identity project and applying that JWT token authentication on React TS application
+This project starter implements JWT Authentication and ASP.NET Core Identity features to manage users, passwords, profile data, roles, claims, tokens, email confirmation, and more.
 
-This is a basic implementation of role-based access control which can be fully controlled from an Admin panel instead of hard coding the permissions inside of your code. 
-This implementation covers the scenario of a basic microservice based system where the users can be having different roles and based on their roles, their permission will be different accross both in the Client side and in the Server side. 
+This is a basic implementation of role-based access control, which can be fully controlled from an Admin panel instead of hard coding the permissions inside of your code. 
+This implementation covers the scenario of a basic microservice-based system where the users can have different roles. Based on their roles, their permission will be different across both the Client side and the Server side. 
 
 ## Technology used
 
